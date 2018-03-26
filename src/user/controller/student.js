@@ -13,12 +13,14 @@ export default class extends Base {
     }
 
     testAction() {
-        let name = this.post('name');
-        let pw = this.post('pw');
-        let data = this.model('test').testIn(name, pw);
+        // let name = this.post('name');
+        // let pw = this.post('pw');
+        // let data = this.model('test').testIn(name, pw);
 
-        this.success(data); //返回数据
-        console.log(data)
+        // this.success(data); //返回数据
+        // console.log(data)
+        return this.display();
+
     }
 
     __before() {
