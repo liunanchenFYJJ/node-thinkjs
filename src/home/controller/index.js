@@ -7,56 +7,70 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  indexAction() {
+  async indexAction() {
     //auto render template file index_index.html
+    // 检查是否有session存在
+    let userinfo = await this.session('userinfo');
+    if (!think.isEmpty(userinfo)) {
+      this.assign('userinfo', userinfo);
+    } else {
+      return this.redirect('login');
+    }
     return this.display();
   }
 
+  // 登录
   async loginAction() {
     var self = this;
 
     //页面post
     if (self.isPost()) {
       console.log('login')
-      // model负责 处理数据库
-      var model = this.model('user');
-      let data = await model.select();
-      this.success(data);
+      let name = self.post('name');
+      let age = self.post('age');
+      let model = self.model('user');
 
-      //用户登录成功写入Session
-      // var name = self.post('name'); //获取post过来的用户名
-      // var pwd = self.post('pwd'); //获取post过来的密码
-      // return D('User').where({ //根据用户名和密码查询符合条件的数据
-      //   name: name,
-      //   pwd: md5(pwd)
-      // }).find().then(function (data) {
-      //   if (isEmpty(data)) {
-      //     //用户名或者密码不正确，返回错误信息
-      //     return self.error(403, '用户名或者密码不正确');
-      //   } else {
-      //     return self.session('userInfo', data);
-      //   }
-      // }).then(function () {
-      //   //登录成功跳转
-      //   return self.redirect('index');
-      // });
-    } else {
-      //页面加载
-      self.assign({
-        'title': '管理-登录'
-      });
-      return self.display();
+      let data = await model.where({
+        user_name: name,
+        user_age: age
+      }).find();
+      if (think.isEmpty(data)) {
+        return self.error(403, '填写错误！');
+      } else {
+        // 登录成功，加入session
+        self.session('userinfo', data);
+        return this.redirect('add');
+      }
     }
+    return self.display();
+
   }
 
+  // 注销用户
+  async logoutAction() {
+    await this.session();
+    return this.redirect('login');
+  }
+
+  // 新增一个用户
   async addAction() {
+    let model = this.model('user');
+    let formData = this.post();
+    let insertId = await model.add({
+      user_name: formData.user,
+      user_age: formData.age,
+      create_date: ['exp', 'CURRENT_TIMESTAMP()']
+    });
     return this.display();
-    // let model = this.model('user');
-    // let insertId = await model.add({
-    //   user_name: 'jolin',
-    //   age: 18,
-    //   create_date: ['exp', 'CURRENT_TIMESTAMP()']
-    // });
+  }
+
+  // 删除一个用户
+  async delAction() {
+    let model = this.model('user');
+    let insertId = await model.where({
+      user_name: 'jolin'
+    }).delete();
+    return this.display();
   }
 
   async adduserAction() {
