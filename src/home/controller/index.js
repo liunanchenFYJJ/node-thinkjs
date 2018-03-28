@@ -9,7 +9,6 @@ export default class extends Base {
    */
   indexAction() {
     //auto render template file index_index.html
-    this.assign('title', 'it is me!')
     return this.display();
   }
 
@@ -58,6 +57,16 @@ export default class extends Base {
     //   age: 18,
     //   create_date: ['exp', 'CURRENT_TIMESTAMP()']
     // });
+  }
+
+  async adduserAction() {
+    let model = this.model('user');
+    let formData = this.post();
+    let insertId = await model.add({
+      user_name: formData.name,
+      age: formData.age,
+      create_date: ['exp', 'CURRENT_TIMESTAMP()']
+    });
   }
 
 }
