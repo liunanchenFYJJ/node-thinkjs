@@ -23,7 +23,7 @@ export default class extends Base {
       var model = this.model('user');
       let data = await model.select();
       this.success(data);
-      
+
       //用户登录成功写入Session
       // var name = self.post('name'); //获取post过来的用户名
       // var pwd = self.post('pwd'); //获取post过来的密码
@@ -50,5 +50,14 @@ export default class extends Base {
     }
   }
 
+  async addAction() {
+    return this.display();
+    // let model = this.model('user');
+    // let insertId = await model.add({
+    //   user_name: 'jolin',
+    //   age: 18,
+    //   create_date: ['exp', 'CURRENT_TIMESTAMP()']
+    // });
+  }
 
 }
