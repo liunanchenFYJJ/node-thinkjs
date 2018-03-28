@@ -13,15 +13,20 @@ export default class extends Base {
     return this.display();
   }
 
-  loginAction() {
+  async loginAction() {
     var self = this;
 
     //页面post
     if (self.isPost()) {
-      //用户登录成功写入Session
-      var name = self.post('name'); //获取post过来的用户名
-      var pwd = self.post('pwd'); //获取post过来的密码
       console.log('login')
+      // model负责 处理数据库
+      var model = this.model('user');
+      let data = await model.select();
+      this.success(data);
+      
+      //用户登录成功写入Session
+      // var name = self.post('name'); //获取post过来的用户名
+      // var pwd = self.post('pwd'); //获取post过来的密码
       // return D('User').where({ //根据用户名和密码查询符合条件的数据
       //   name: name,
       //   pwd: md5(pwd)
