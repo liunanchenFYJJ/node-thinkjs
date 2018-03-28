@@ -5,6 +5,5 @@
 export default {
   //key: value
   key: 'errno', //error number
-  msg: 'errmsg', //error message
-  value: 1000 //default errno
+  msg: 'errmsg' //error message
 };
