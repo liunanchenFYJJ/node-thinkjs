@@ -17,7 +17,7 @@
         };
         //vue 实例
         var app1 = new Vue({
-            el: '#vue_app',
+            el: '#app',
             data: vueMode,
 
             filters: {

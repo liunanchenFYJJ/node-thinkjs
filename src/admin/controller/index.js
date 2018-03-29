@@ -11,4 +11,9 @@ export default class extends Base {
     //auto render template file index_index.html
     return this.display();
   }
+
+  echartsAction(){
+    //auto render template file index_index.html
+    return this.display();
+  }
 }

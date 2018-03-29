@@ -10,7 +10,7 @@
 </head>
 
 <body class="layui-layout-body">
-  <div class="layui-layout layui-layout-admin">
+  <div id="app" class="layui-layout layui-layout-admin">
 
 
     <%include parts/header%>
@@ -22,8 +22,8 @@
             <blockquote class="layui-elem-quote">
               运维总览,整体运维的总视图
             </blockquote>
-            <div class="vue_app">
-              vue
+            <div>
+              vue{{msg}}
             </div>
             <!-- <%include parts/test%> -->
           </div>
@@ -32,6 +32,8 @@
         <%include parts/footer%>
 
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="/static/js/echarts.js"></script>
   <script src="/static/layui/layui.js"></script>
   <script>
     //JavaScript代码区域
@@ -40,7 +42,15 @@
 
     });
   </script>
-<script src="/static/js/vue_echarts.js"></script>
+  <script src="/static/js/vue_echarts.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello jj'
+      }
+    })
+  </script>
 </body>
 
 </html>
