@@ -11,195 +11,26 @@
 
 <body class="layui-layout-body">
   <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-      <div class="layui-logo">能源综合服务平台</div>
-      <!-- 头部区域（可配合layui已有的水平导航） -->
-      <ul class="layui-nav layui-layout-right">
-        <li class="layui-nav-item">
-          <a href="javascript:;">消息</a>
-          <dl class="layui-nav-child">
-            <dd>
-              <a href="">邮件管理</a>
-            </dd>
-            <dd>
-              <a href="">消息管理</a>
-            </dd>
-            <dd>
-              <a href="">授权管理</a>
-            </dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">
-            <img src="http://t.cn/RCzsdCq" class="layui-nav-img"> 贤心
-          </a>
-          <dl class="layui-nav-child">
-            <dd>
-              <a href="">基本资料</a>
-            </dd>
-            <dd>
-              <a href="">安全设置</a>
-            </dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="">退了</a>
-        </li>
-      </ul>
-    </div>
 
-    <div class="layui-side layui-bg-black">
-      <div class="layui-side-scroll">
-        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-        <ul class="layui-nav layui-nav-tree" lay-filter="test">
-          <li class="layui-nav-item layui-nav-itemed">
-            <a class="" href="javascript:;">运维中心</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-dashboard"></i>运维总览</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-map-marker"></i>站点地理分布</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-wrench"></i>运维监测</a>
-              </dd>
-              <dd>
-                <a href="">
-                  <i class="fa fa-bell-o"></i>告警/故障监测</a>
-              </dd>
-              <dd>
-                <a href="">
-                  <i class="fa fa-file-powerpoint-o"></i>报表监测</a>
-              </dd>
-              <dd>
-                <a href="">
-                  <i class="fa fa-camera"></i>视频检测</a>
-              </dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">巡检管理</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-dashboard"></i>巡检总视图</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-list-ul"></i>巡检点配置</a>
-              </dd>
-              <dd>
-                <a href="">
-                  <i class="fa fa-users"></i>巡检班组管理</a>
-              </dd>
-              <dd>
-                <a href="">
-                  <i class="fa fa-calendar-check-o"></i>巡检计划管理</a>
-              </dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">需求管理</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-dashboard"></i>需求DSM总览</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-cloud-upload"></i>接入管理</a>
-              </dd>
-              <dd>
-                <a href="">
-                  <i class="fa fa-random"></i>预案管理</a>
-              </dd>
-              <dd>
-                <a href="">
-                  <i class="fa fa-calendar-check-o"></i>需求响应</a>
-              </dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">工程管理</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-cogs"></i>工程管理</a>
-              </dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">客服管理</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-dashboard"></i>客服管理总览</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-cloud-upload"></i>线上客服</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-random"></i>线下客服</a>
-              </dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">能效管理</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-thermometer-1"></i>指标管理</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-pie-chart"></i>能效评估</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-pie-chart"></i>节能评估</a>
-              </dd>
-            </dl>
-          </li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">后台管理</a>
-            <dl class="layui-nav-child">
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-thermometer-1"></i>企业信息管理</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-pie-chart"></i>设备基础信息管理</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-pie-chart"></i>指标管理</a>
-              </dd>
-              <dd>
-                <a href="javascript:;">
-                  <i class="fa fa-pie-chart"></i>用户管理</a>
-              </dd>
-            </dl>
-          </li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="layui-body">
-      <!-- 内容主体区域 -->
-      <div style="padding: 15px;">内容主体区域</div>
-    </div>
+    <%include parts/header%>
+      <%include parts/left-nav%>
 
-    <div class="layui-footer">
-      <!-- 底部固定区域 -->
-      © layui.com - 底部固定区域
-    </div>
+        <div class="layui-body">
+          <!-- 内容主体区域 -->
+          <div>
+            <blockquote class="layui-elem-quote">
+              运维总览,整体运维的总视图
+            </blockquote>
+            <div class="vue_app">
+              vue
+            </div>
+            <!-- <%include parts/test%> -->
+          </div>
+        </div>
+        
+      <%include parts/footer%>
+        
   </div>
   <script src="/static/layui/layui.js"></script>
   <script>
