@@ -39,7 +39,7 @@ export default class extends Base {
       } else {
         // 登录成功，加入session
         self.session('userinfo', data);
-        return this.redirect('add');
+        return self.redirect('add');
       }
     }
     return self.display();
