@@ -1,4 +1,53 @@
 <div class="layui-footer">
 <!-- 底部固定区域 -->
-© layui.com - 底部固定区域
+© layui.com - 底部固定区域black<button>hello</button>
 </div>
+<script src="/static/js/jquery.js"></script>
+<script>
+$(function(){
+    // test
+    $('button').click(function(){
+        console.log('hello')
+    })
+    // 导航栏
+    $(".layui-nav-child a").click(function (e) {
+        e.preventDefault();
+  
+        var href = e.target.attributes.href.value;
+  
+        var token = sessionStorage.getItem("token");
+        console.log("token:" + token);
+        console.log("get:" + href);
+        if (href != "#") {
+          window.eventDispatcher.trigger("onClickMenu", href, {});
+          // $("#wrapp").load(href);
+          $.get(href, {}, function (result) {
+            //console.log(result);
+            // $("#wrapp").html(result);
+            var elem = $('<div>' + result + "</div>");
+  
+            $("#wrapp").empty().html(elem);
+            // $("#wrapp").empty().html(result);
+          });
+        }
+      });
+          /**
+     * 只显示一级菜单
+     */
+    var initShowOneMenu = function () {
+        var lis = $('#nav_list').children("li");
+        lis.each(function () {
+          $(this).on('click', function () {
+            $(this).siblings().removeClass('layui-nav-itemed');
+          });
+        });
+      }
+    initShowOneMenu();
+      
+})
+</script>
+<style>
+.layui-footer{
+    color:red;
+}
+</style>

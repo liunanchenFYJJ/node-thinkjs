@@ -24,6 +24,9 @@
             </blockquote>
             <div>
               vue{{msg}}
+              <div id="ejs">
+
+                </div>
             </div>
             <!-- <%include parts/test%> -->
           </div>
@@ -32,9 +35,10 @@
         <%include parts/footer%>
 
   </div>
+  <script src="/static/layui/layui.js"></script>  
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script src="/static/js/echarts.js"></script>
-  <script src="/static/layui/layui.js"></script>
+  <script src="/static/js/ejs.js"></script>  
   <script>
     //JavaScript代码区域
     layui.use('element', function () {
@@ -42,8 +46,8 @@
 
     });
   </script>
-  <script src="/static/js/vue_echarts.js"></script>
-  <script>
+  <!-- <script src="/static/js/vue_echarts.js"></script> -->
+  <!-- <script>
     var app = new Vue({
       el: '#app',
       data: {
@@ -51,6 +55,14 @@
       }
     })
   </script>
+  <script>
+      // var user = {name: 'jj'};
+      html = ejs.render(`<% var user = {name: 'jj'}%>
+                          <% if (user) { %>
+                            <h2><%= user.name %></h2>
+                          <% } %>`);
+			document.getElementById('ejs').innerHTML = html;
+  </script> -->
 </body>
 
 </html>
