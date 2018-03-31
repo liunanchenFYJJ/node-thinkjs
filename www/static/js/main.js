@@ -53,7 +53,7 @@
       ishide = false;
     }
 
-    window.eventDispatcher.trigger("Onanimate", {}, {});
+    // window.eventDispatcher.trigger("Onanimate", {}, {});
 
   });
   util.fixbar({
@@ -101,7 +101,7 @@
     console.log("token:" + token);
     console.log("get:" + href);
     if (href != "#") {
-      window.eventDispatcher.trigger("onClickMenu", href, {});
+      // window.eventDispatcher.trigger("onClickMenu", href, {});
      // $("#wrapp").load(href);
       $.get(href, {}, function (result) {
         //console.log(result);

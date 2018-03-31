@@ -1,1 +1,21 @@
-success
+<!-- 内容主体区域 -->
+<div>
+    <blockquote class="layui-elem-quote">
+      运维总览,整体运维的总视图
+    </blockquote>
+    <!-- 利用 vue 实例进行数据绑定 -->
+    <div id="app">
+        <div>
+            vue{{msg}}                
+        </div>
+    </div>
+    
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            msg: 'jj'
+        }
+    })
+</script>
