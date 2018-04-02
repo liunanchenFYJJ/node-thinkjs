@@ -1,0 +1,103 @@
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        通信监测,主要监测子站运行整体状态
+    </blockquote>
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">子状态总览</li>
+            <li>网关状态总览</li>
+            <li>消息推送总览</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <fieldset class="layui-elem-field">
+                    <legend>子站状态</legend>
+                    <div class="layui-field-box">
+                        <div class="layui-row">
+                            <div class="layui-col-sm6 layui-col-md4">
+                                <div id="map" style="height: 200px; width: 100%;"></div>                                
+                            </div>
+                            <div class="layui-col-sm6 layui-col-md4">
+                                <div id="map2" style="height: 200px; width: 100%;"></div>                                
+                            </div>
+                            <div class="layui-col-sm6 layui-col-md4">
+                                <div id="map3" style="height: 200px; width: 100%;"></div>                                
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field">
+                    <legend>站点详细情况(点击上图分类进行查询)</legend>
+                    <div class="layui-field-box">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                <th>站点名称</th>
+                                <th>隶属企业</th>
+                                <th>状态</th>
+                                <th>当前负荷(kW)</th>
+                                <th>电量增速(kwh/时)</th>
+                                <th>环境参数()</th>
+                                <th>运行评价(%)</th>
+                                <th>操作</th>
+                                </tr> 
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>贤心</td>
+                                <td>2016-11-29</td>
+                                <td>贤心</td>
+                                <td>2016-11-29</td>
+                                <td>人生就像是一场修行</td>
+                                <td>许闲心</td>
+                                <td>2016-11-28</td>
+                                <td>操作</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field">
+                    <legend>今日需重点关注(AI只能推荐)</legend>
+                    <div class="layui-field-box">
+                        <div class="layui-row">
+                            <div class="layui-col-sm6 layui-col-md4">
+                                <fieldset class="layui-elem-field">
+                                    <legend>负荷率最高</legend>
+                                    <div class="layui-field-box"></div>
+                                </fieldset>                               
+                            </div>
+                            <div class="layui-col-sm6 layui-col-md4">
+                                <fieldset class="layui-elem-field">
+                                    <legend>运维风险综合指标</legend>
+                                    <div class="layui-field-box"></div>
+                                </fieldset>                           
+                            </div>
+                            <div class="layui-col-sm6 layui-col-md4">
+                                <fieldset class="layui-elem-field">
+                                    <legend>温度指标</legend>
+                                    <div class="layui-field-box"></div>
+                                </fieldset>                           
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="layui-tab-item">内容2</div>
+            <div class="layui-tab-item">内容3</div>
+        </div>
+    </div>
+</div>
+<style>
+
+</style>
+<script>
+    (function(){
+
+    }())
+</script>

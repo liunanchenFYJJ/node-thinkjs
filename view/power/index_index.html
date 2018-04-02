@@ -3,167 +3,165 @@
     运维总览,整体运维的总视图
 </blockquote>
 <!-- 利用 vue 实例进行数据绑定 -->
-<div id="app">
-    <div class="layui-tab">
-        <ul class="layui-tab-title">
-            <li class="layui-this">运维总览</li>
-        </ul>
-        <div class="layui-tab-content">
-            <div class="layui-tab-item layui-show">
-                <!-- 内容主体 -->
-                <div class="layui-row">
-                    <div class="layui-col-sm6 layui-col-md3">
-                        <fieldset class="layui-elem-field">
-                            <legend>平台工程总览</legend>
-                            <div class="layui-field-box animation1">
-                                <div class="row hz_pannel_120">
-                                    <div class="col-sm-6 col-xs-12">
-                                        <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-12">
-                                        <span>您的站点:</span>
-                                        <span>在线子站:</span>
-                                        <span>离线子站:</span>
-                                        <span>检修子站:</span>                                        
-                                    </div>
+<div class="layui-tab" id="app">
+    <ul class="layui-tab-title">
+        <li class="layui-this">运维总览</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <!-- 内容主体 -->
+            <div class="layui-row">
+                <div class="layui-col-sm6 layui-col-md3">
+                    <fieldset class="layui-elem-field">
+                        <legend>平台工程总览</legend>
+                        <div class="layui-field-box animation1">
+                            <div class="row hz_pannel_120">
+                                <div class="col-sm-6 col-xs-12">
+                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <span>您的站点:</span>
+                                    <span>在线子站:</span>
+                                    <span>离线子站:</span>
+                                    <span>检修子站:</span>                                        
                                 </div>
                             </div>
-                        </fieldset>
-                    </div>
-                    <div class="layui-col-sm6 layui-col-md3">
-                        <fieldset class="layui-elem-field">
-                            <legend>指标检测总览</legend>
-                            <div class="layui-field-box animation1">
-                                <div class="row hz_pannel_120">
-                                    <div class="col-sm-6 col-xs-12">
-                                        <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-12">
-                                        <span>总指标数:</span>
-                                        <span>设备指标数:</span>
-                                        <span>运行指标:</span>
-                                        <span>异常指标率:</span>                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="layui-col-sm6 layui-col-md3">
-                        <fieldset class="layui-elem-field">
-                            <legend>告警检测总览</legend>
-                            <div class="layui-field-box animation1">
-                                <div class="row hz_pannel_120">
-                                    <div class="col-sm-6 col-xs-12">
-                                        <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-12">
-                                        <span>今日告警数:</span>
-                                        <span>严重等级:</span>
-                                        <span>普通等级:</span>
-                                        <span>一般等级:</span>                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="layui-col-sm6 layui-col-md3">
-                        <fieldset class="layui-elem-field">
-                            <legend>待办事项总览</legend>
-                            <div class="layui-field-box animation1">
-                                <div class="row hz_pannel_120">
-                                    <div class="col-sm-6 col-xs-12">
-                                        <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-12">
-                                        <span>近期待办:</span>
-                                        <span>紧急等级:</span>
-                                        <span>普通等级:</span>
-                                        <span>一般等级:</span>                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="layui-row">
-                    <div class="layui-col-sm6 layui-col-md8">
-                        <fieldset class="layui-elem-field">
-                            <legend>平台总流量趋势</legend>
-                            <div class="layui-field-box">
-                                <div id="total_fuhe_map" style="height: 240px; width: 100%;"></div>
+                <div class="layui-col-sm6 layui-col-md3">
+                    <fieldset class="layui-elem-field">
+                        <legend>指标检测总览</legend>
+                        <div class="layui-field-box animation1">
+                            <div class="row hz_pannel_120">
+                                <div class="col-sm-6 col-xs-12">
+                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <span>总指标数:</span>
+                                    <span>设备指标数:</span>
+                                    <span>运行指标:</span>
+                                    <span>异常指标率:</span>                                        
+                                </div>
                             </div>
-                        </fieldset>
-                    </div>               
-                    <div class="layui-col-sm6 layui-col-md4">
-                        <fieldset class="layui-elem-field">
-                            <legend>站点负荷区间分布(kw)</legend>
-                            <div class="layui-field-box">
-                                <div id="fuhe_map" style="height: 240px; width: 100%;"></div>
-                            </div>
-                        </fieldset>
-                    </div>               
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="layui-row">
-                    <div class="layui-col-sm6 layui-col-md6">
-                        <fieldset class="layui-elem-field">
-                            <legend>Top 10 用能站点</legend>
-                            <div class="layui-field-box">
-                                <div id="top_fuhe_map" style="height: 240px; width: 100%;"></div>
+                <div class="layui-col-sm6 layui-col-md3">
+                    <fieldset class="layui-elem-field">
+                        <legend>告警检测总览</legend>
+                        <div class="layui-field-box animation1">
+                            <div class="row hz_pannel_120">
+                                <div class="col-sm-6 col-xs-12">
+                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <span>今日告警数:</span>
+                                    <span>严重等级:</span>
+                                    <span>普通等级:</span>
+                                    <span>一般等级:</span>                                        
+                                </div>
                             </div>
-                        </fieldset>
-                    </div>               
-                    <div class="layui-col-sm6 layui-col-md6">
-                        <fieldset class="layui-elem-field">
-                            <legend>平台用能趋势(kwh)</legend>
-                            <div class="layui-field-box">
-                                <div id="top_energy_map" style="height: 240px; width: 100%;"></div>
-                            </div>
-                        </fieldset>
-                    </div> 
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="layui-row">
-                    <div class="layui-col-sm12 layui-col-md12">
-                        <fieldset class="layui-elem-field">
-                            <legend>重点站点服务检测|<a><i class="fa fa-plus-circle"></i></a>添加关注</legend>
-                            <div class="layui-field-box">
-                                <table class="layui-table">
-                                    <colgroup>
-                                        <col width="150">
-                                        <col width="200">
-                                        <col>
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                        <th>操作</th>
-                                        <th>子站名称</th>
-                                        <th>企业名称</th>
-                                        <th>所属行业</th>
-                                        <th>装机容量(kVA)</th>
-                                        <th>当前负荷(kW)</th>
-                                        <th>最大负荷(kW)</th>
-                                        <th>指标状态</th>
-                                        <th>通信状态</th>
-                                        </tr> 
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <td>1</td>
-                                        <td>2-11-29</td>
-                                        <td>人生就像是一场修行1</td>
-                                        <td>人生就像是一场修行2</td>
-                                        <td>人生就像是一场修行3</td>
-                                        <td>人生就像是一场修行4</td>
-                                        <td>人生就像是一场修行5</td>
-                                        <td>人生就像是一场修行6</td>
-                                        <td>人生就像是一场修行7</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                <div class="layui-col-sm6 layui-col-md3">
+                    <fieldset class="layui-elem-field">
+                        <legend>待办事项总览</legend>
+                        <div class="layui-field-box animation1">
+                            <div class="row hz_pannel_120">
+                                <div class="col-sm-6 col-xs-12">
+                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);"></i>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <span>近期待办:</span>
+                                    <span>紧急等级:</span>
+                                    <span>普通等级:</span>
+                                    <span>一般等级:</span>                                        
+                                </div>
                             </div>
-                        </fieldset>
-                    </div> 
-                </div>                
+                        </div>
+                    </fieldset>
+                </div>
             </div>
+            <div class="layui-row">
+                <div class="layui-col-sm6 layui-col-md8">
+                    <fieldset class="layui-elem-field">
+                        <legend>平台总流量趋势</legend>
+                        <div class="layui-field-box">
+                            <div id="total_fuhe_map" style="height: 240px; width: 100%;"></div>
+                        </div>
+                    </fieldset>
+                </div>               
+                <div class="layui-col-sm6 layui-col-md4">
+                    <fieldset class="layui-elem-field">
+                        <legend>站点负荷区间分布(kw)</legend>
+                        <div class="layui-field-box">
+                            <div id="fuhe_map" style="height: 240px; width: 100%;"></div>
+                        </div>
+                    </fieldset>
+                </div>               
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-sm6 layui-col-md6">
+                    <fieldset class="layui-elem-field">
+                        <legend>Top 10 用能站点</legend>
+                        <div class="layui-field-box">
+                            <div id="top_fuhe_map" style="height: 240px; width: 100%;"></div>
+                        </div>
+                    </fieldset>
+                </div>               
+                <div class="layui-col-sm6 layui-col-md6">
+                    <fieldset class="layui-elem-field">
+                        <legend>平台用能趋势(kwh)</legend>
+                        <div class="layui-field-box">
+                            <div id="top_energy_map" style="height: 240px; width: 100%;"></div>
+                        </div>
+                    </fieldset>
+                </div> 
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-sm12 layui-col-md12">
+                    <fieldset class="layui-elem-field">
+                        <legend>重点站点服务检测|<a><i class="fa fa-plus-circle"></i></a>添加关注</legend>
+                        <div class="layui-field-box">
+                            <table class="layui-table">
+                                <colgroup>
+                                    <col width="150">
+                                    <col width="200">
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                    <th>操作</th>
+                                    <th>子站名称</th>
+                                    <th>企业名称</th>
+                                    <th>所属行业</th>
+                                    <th>装机容量(kVA)</th>
+                                    <th>当前负荷(kW)</th>
+                                    <th>最大负荷(kW)</th>
+                                    <th>指标状态</th>
+                                    <th>通信状态</th>
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td>1</td>
+                                    <td>2-11-29</td>
+                                    <td>人生就像是一场修行1</td>
+                                    <td>人生就像是一场修行2</td>
+                                    <td>人生就像是一场修行3</td>
+                                    <td>人生就像是一场修行4</td>
+                                    <td>人生就像是一场修行5</td>
+                                    <td>人生就像是一场修行6</td>
+                                    <td>人生就像是一场修行7</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div> 
+            </div>                
         </div>
     </div>
 </div>
