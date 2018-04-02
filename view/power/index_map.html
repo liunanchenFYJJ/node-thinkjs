@@ -1,1 +1,54 @@
-map
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        站点分布,以地图方式显示站点运行信息
+        <!-- <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择框</label>
+                <div class="layui-input-block">
+                    <select name="city" lay-verify="required">
+                        <option value=""></option>
+                        <option value="0">北京</option>
+                        <option value="1">上海</option>
+                        <option value="2">广州</option>
+                        <option value="3">深圳</option>
+                        <option value="4">杭州</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form> -->
+    </blockquote>
+    <div id="allmap"  class="layui-row" style="background-color:red"></div>
+</div>
+<style>
+    #container{
+        width: 100%-200px;
+        height: 808px;
+    }
+    #allmap{
+        width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";
+    }
+</style>
+<script>
+    (function(){
+        layui.use('form', function(){
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+            // 使用地图
+            var map = new BMap.Map("allmap");    
+            var point = new BMap.Point(120.62, 31.32);    
+            map.centerAndZoom(point, 11);        //设置地图默认粒度
+            map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+            // map.setCurrentCity("苏州"); 
+        });
+    }())
+</script>

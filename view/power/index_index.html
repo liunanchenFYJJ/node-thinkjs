@@ -126,7 +126,39 @@
                         <fieldset class="layui-elem-field">
                             <legend>重点站点服务检测|<a><i class="fa fa-plus-circle"></i></a>添加关注</legend>
                             <div class="layui-field-box">
-                                <div id="top_energy_map" style="height: 240px; width: 100%;"></div>
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="150">
+                                        <col width="200">
+                                        <col>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                        <th>操作</th>
+                                        <th>子站名称</th>
+                                        <th>企业名称</th>
+                                        <th>所属行业</th>
+                                        <th>装机容量(kVA)</th>
+                                        <th>当前负荷(kW)</th>
+                                        <th>最大负荷(kW)</th>
+                                        <th>指标状态</th>
+                                        <th>通信状态</th>
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>1</td>
+                                        <td>2-11-29</td>
+                                        <td>人生就像是一场修行1</td>
+                                        <td>人生就像是一场修行2</td>
+                                        <td>人生就像是一场修行3</td>
+                                        <td>人生就像是一场修行4</td>
+                                        <td>人生就像是一场修行5</td>
+                                        <td>人生就像是一场修行6</td>
+                                        <td>人生就像是一场修行7</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </fieldset>
                     </div> 
@@ -147,8 +179,8 @@
         // echarts图标初始化
         var myChart = echarts.init(document.getElementById('total_fuhe_map'));
         var myChart1 = echarts.init(document.getElementById('fuhe_map'));        
-        var myChart2 = echarts.init(document.getElementById('top_fuhe_map'));        
-        var myChart3 = echarts.init(document.getElementById('total_energy_map'));        
+        // var myChart2 = echarts.init(document.getElementById('top_fuhe_map'));        
+        // var myChart3 = echarts.init(document.getElementById('total_energy_map'));        
         var option = {
             tooltip: {},
             xAxis: {
@@ -191,7 +223,7 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         myChart1.setOption(option1);
-        myChart2.setOption(option1);
-        myChart3.setOption(option1);
+        // myChart2.setOption(option2);
+        // myChart3.setOption(option3);
     }())
 </script>
