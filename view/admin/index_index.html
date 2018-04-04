@@ -5,7 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>layout 后台大布局 - Layui</title>
+  <!-- layui样式 -->
   <link rel="stylesheet" href="/static/layui/css/layui.css">
+  <!-- font-awesome样式 -->
   <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.css">
 </head>
 
@@ -24,11 +26,17 @@
         <%include parts/footer%>
 
   </div>
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iE6Nttmdl4TXocGQHgYh0W44aeERi4Gs"></script>  
+  <!-- 百度地图 -->
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iE6Nttmdl4TXocGQHgYh0W44aeERi4Gs"></script> 
+   <!-- layui  -->
   <script src="/static/layui/layui.js"></script>  
+  <!-- vue -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <!-- echarts -->
   <script src="/static/js/echarts.js"></script>
+  <!-- ejs模板 -->
   <script src="/static/js/ejs.js"></script>
+  <!-- 自定义 -->
   <script src="/static/js/main.js"></script>    
   <script>
     //JavaScript代码区域
@@ -37,23 +45,6 @@
 
     });
   </script>
-  <!-- <script src="/static/js/vue_echarts.js"></script> -->
-  <!-- <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        msg: 'hello jj'
-      }
-    })
-  </script>
-  <script>
-      // var user = {name: 'jj'};
-      html = ejs.render(`<% var user = {name: 'jj'}%>
-                          <% if (user) { %>
-                            <h2><%= user.name %></h2>
-                          <% } %>`);
-			document.getElementById('ejs').innerHTML = html;
-  </script> -->
 </body>
 
 </html>
