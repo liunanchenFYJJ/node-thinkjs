@@ -14,7 +14,7 @@ export default {
       database: 'thinkjs',
       user: 'root',
       password: '123456',
-      prefix: 'think_',
+      prefix: 'hz_',
       encoding: 'utf8'
     },
     mongo: {
