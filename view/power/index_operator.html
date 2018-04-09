@@ -14,13 +14,13 @@
                     <legend>子站状态</legend>
                     <div class="layui-field-box">
                         <div class="layui-row">
-                            <div class="layui-col-sm6 layui-col-md4">
+                            <div class="layui-col-sm4">
                                 <div id="map" style="height: 200px; width: 100%;"></div>                                
                             </div>
-                            <div class="layui-col-sm6 layui-col-md4">
+                            <div class="layui-col-sm4">
                                 <div id="map2" style="height: 200px; width: 100%;"></div>                                
                             </div>
-                            <div class="layui-col-sm6 layui-col-md4">
+                            <div class="layui-col-sm4">
                                 <div id="map3" style="height: 200px; width: 100%;"></div>                                
                             </div>
                         </div>
@@ -49,14 +49,20 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <td>贤心</td>
-                                <td>2016-11-29</td>
-                                <td>贤心</td>
-                                <td>2016-11-29</td>
-                                <td>人生就像是一场修行</td>
-                                <td>许闲心</td>
-                                <td>2016-11-28</td>
-                                <td>操作</td>
+                                <td>中国电信</td>
+                                <td>中国电信(苏州)分公司</td>
+                                <td><i class="fa fa-dot-circle-o run">在线</i></td>
+                                <td>1315</td>
+                                <td>243</td>
+                                <td>47</td>
+                                <td>89%</td>
+                                <td>
+                                    <div class="layui-btn-group">
+                                        <button class="layui-btn layui-btn-sm">
+                                            <i class="fa fa-line-chart"></i>
+                                        </button>
+                                    </div>
+                                </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -66,19 +72,19 @@
                     <legend>今日需重点关注(AI只能推荐)</legend>
                     <div class="layui-field-box">
                         <div class="layui-row">
-                            <div class="layui-col-sm6 layui-col-md4">
+                            <div class="layui-col-sm4">
                                 <fieldset class="layui-elem-field">
                                     <legend>负荷率最高</legend>
                                     <div class="layui-field-box"></div>
                                 </fieldset>                               
                             </div>
-                            <div class="layui-col-sm6 layui-col-md4">
+                            <div class="layui-col-sm4">
                                 <fieldset class="layui-elem-field">
                                     <legend>运维风险综合指标</legend>
                                     <div class="layui-field-box"></div>
                                 </fieldset>                           
                             </div>
-                            <div class="layui-col-sm6 layui-col-md4">
+                            <div class="layui-col-sm4">
                                 <fieldset class="layui-elem-field">
                                     <legend>温度指标</legend>
                                     <div class="layui-field-box"></div>
@@ -88,8 +94,126 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="layui-tab-item">内容2</div>
-            <div class="layui-tab-item">内容3</div>
+            <!-- 2 -->
+            <div class="layui-tab-item">
+                <fieldset class="layui-elem-field">
+                    <legend>网关状态统计</legend>
+                    <div class="layui-field-box">
+                        <div class="layui-row">
+                            <div class="layui-col-sm4">
+                                <div id="map" style="height: 200px; width: 100%;"></div>                                
+                            </div>
+                            <div class="layui-col-sm4">
+                                <div id="map2" style="height: 200px; width: 100%;"></div>                                
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field">
+                    <legend>网关详细情况(点击上图分类进行查询)</legend>
+                    <div class="layui-field-box">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th>网关名称</th>
+                                <th>所属工程</th>
+                                <th>通信状态</th>
+                                <th>CPU负荷(%)</th>
+                                <th>剩余内存(MB)</th>
+                                <th>发送报文(Kbs)</th>
+                                <th>接收报文(Kbs)</th>                                
+                                <th>操作</th>
+                                </tr> 
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>1</td>                                    
+                                <td>gw01(192.168.0.100)</td>
+                                <td>中国电信</td>
+                                <td><i class="fa fa-dot-circle-o run">在线</i></td>
+                                <td>1315</td>
+                                <td>243</td>
+                                <td>47</td>
+                                <td>89%</td>
+                                <td>
+                                    <div class="layui-btn-group">
+                                        <button class="layui-btn layui-btn-sm">
+                                            <i class="fa fa-line-chart"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+            <!-- 3 -->
+            <div class="layui-tab-item">
+                <fieldset class="layui-elem-field">
+                    <legend>消息推送情况</legend>
+                    <div class="layui-field-box">
+                        <div class="layui-row">
+                            <div class="layui-col-sm4">
+                                <div id="map" style="height: 200px; width: 100%;"></div>                                
+                            </div>
+                            <div class="layui-col-sm4">
+                                <div id="map2" style="height: 200px; width: 100%;"></div>                                
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field">
+                    <legend>消息推送详细情况(点击上图分类进行查询)</legend>
+                    <div class="layui-field-box">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th>消息名称</th>
+                                <th>消息类型</th>
+                                <th>推送内容</th>
+                                <th>推送方式</th>
+                                <th>接受者</th>
+                                <th>推送时间</th>
+                                <th>推送状态</th>                                
+                                <th>操作</th>
+                                </tr> 
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>1</td>                                    
+                                <td>温度超温</td>
+                                <td>越限类型</td>
+                                <td>***</td>
+                                <td>邮件|SMS</td>
+                                <td>cube3power@163.com</td>
+                                <td>2018/04/06 11:54</td>
+                                <td><i class="fa fa-dot-circle-o run">在线</i></td>
+                                <td>
+                                    <div class="layui-btn-group">
+                                        <button class="layui-btn layui-btn-sm">
+                                            <i class="fa fa-send-o"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
         </div>
     </div>
 </div>
@@ -98,6 +222,30 @@
 </style>
 <script>
     (function(){
-
+        var myChart = echarts.init(document.getElementById('map'));
+        option = {
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'负荷',
+                    type:'pie',
+                    radius : [30, 110],
+                    center : ['50%', '50%'],
+                    roseType : 'area',
+                    data:[
+                        {value:10, name:'rose1'},
+                        {value:5, name:'rose2'},
+                        {value:15, name:'rose3'},
+                        {value:25, name:'rose4'},
+                        {value:25, name:'rose5'},
+                    ]
+                }
+            ]
+        };
+        myChart.setOption(option);
     }())
 </script>
