@@ -70,7 +70,29 @@
             map.addOverlay(marker2);              // 将标注添加到地图中
             marker2.addEventListener("click",attribute);
             function attribute(){
-                var content = `<h1>helooe</h1>`
+                var content = ` <div class="layui-row">
+                <div class="layui-col-sm6 layui-col-md3">
+                    <fieldset class="layui-elem-field">
+                        <legend>平台工程总览</legend>
+                        <div class="layui-field-box animation1">
+                            <div class="layui-row">
+                                <div class="layui-col-sm6 layui-col-xs12">
+                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe62c;</i>
+                                </div>
+                                <div class="layui-col-sm6 layui-col-xs12">
+                                    <span>您的站点:</span>
+                                    <span>在线子站:</span>
+                                    <span>离线子站:</span>
+                                    <span>检修子站:</span>                                        
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="layui-col-sm6 layui-col-md3">
+
+                </div>
+            </div>`
                 layer.open({
                     title: '子站运行简报',
                     content: content,
