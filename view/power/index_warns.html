@@ -1,0 +1,342 @@
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        告警监测,主要监测子站的设备告警信息！
+    </blockquote>
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">告警信息总览</li>
+            <li>故障信息总览</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <fieldset class="layui-elem-field">
+                            <legend>今日告警事件(0)</legend>
+                            <div class="layui-field-box">
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="150">
+                                        <col width="200">
+                                        <col>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                        <th>时间</th>
+                                        <th>告警等级</th>
+                                        <th>告警内容</th>
+                                        <th>处理状态</th>
+                                        <th>操作</th>
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>中国电信</td>
+                                        <td>中国电信(苏州)分公司</td>
+                                        <td>1315</td>                                                
+                                        <td><i class="fa fa-dot-circle-o run">在线</i></td>
+                                        <td>
+                                            <div class="layui-btn-group">
+                                                <button class="layui-btn layui-btn-sm">
+                                                    <i class="fa fa-line-chart"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="layui-col-md6">
+                        <fieldset class="layui-elem-field">
+                            <legend>周告警信息分布图</legend>
+                            <div class="layui-field-box">
+                                <div id="warn_week_map" style="height: 220px; width: 100%">
+
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field">
+                    <legend>过滤查询条件</legend>
+                    <div class="layui-field-box">
+                        <form class="layui-form" action="">
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">故障等级</label>
+                                    <div class="layui-input-block">
+                                        <select name="city" lay-verify="required">
+                                        <option value=""></option>
+                                        <option value="0">全部</option>
+                                        <option value="1">严重</option>
+                                        <option value="2">普通</option>
+                                        <option value="3">一般</option>
+                                        </select>
+                                    </div>
+                                </div>                                
+                            <!-- </div> -->
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">处理状态</label>
+                                    <div class="layui-inline">
+                                        <select name="city" lay-verify="required">
+                                        <option value=""></option>
+                                        <option value="0">全部</option>
+                                        <option value="1">未处理</option>
+                                        <option value="2">已处理</option>
+                                        </select>
+                                    </div>
+                                </div>                                
+                            <!-- </div> -->
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">日期范围</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+                                    </div>
+                                </div>
+                            <!-- </div> -->
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            <!-- </div> -->
+                        </form>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field">
+                    <legend>告警详细信息(0)</legend>
+                    <div class="layui-field-box">
+                        <div id="warn-history-table" class="tabulator">？插件？</div>
+                    </div>
+                </fieldset>
+            </div>
+            <!-- 2 -->
+            <div class="layui-tab-item">
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <fieldset class="layui-elem-field">
+                            <legend>待处理故障(0)</legend>
+                            <div class="layui-field-box">
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="150">
+                                        <col width="200">
+                                        <col>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                        <th>时间</th>
+                                        <th>故障来源</th>
+                                        <th>故障等级</th>                                        
+                                        <th>故障描述</th>
+                                        <th>处理状态</th>
+                                        <th>操作</th>
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>中国电信</td>
+                                        <td>中国电信(苏州)分公司</td>
+                                        <td>13：15</td> 
+                                        <td><i class="fa fa-dot-circle-o run">在线</i></td>                                                                                       
+                                        <td>张三</td>                                                
+                                        <td>
+                                            <div class="layui-btn-group">
+                                                <button class="layui-btn layui-btn-sm">
+                                                    <i class="fa fa-line-chart"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="layui-col-md6">
+                        <fieldset class="layui-elem-field">
+                            <legend>故障分布图</legend>
+                            <div class="layui-field-box">
+                                <div id="fault_week_chart" style="height: 220px; width: 400px">
+
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field">
+                    <legend>过滤查询条件</legend>
+                    <div class="layui-field-box">
+                        <form class="layui-form" action="">
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">告警等级</label>
+                                    <div class="layui-input-block">
+                                        <select name="city" lay-verify="required">
+                                        <option value=""></option>
+                                        <option value="0">全部</option>
+                                        <option value="1">严重</option>
+                                        <option value="2">普通</option>
+                                        <option value="3">一般</option>
+                                        </select>
+                                    </div>
+                                </div>                                
+                            <!-- </div> -->
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">处理状态</label>
+                                    <div class="layui-inline">
+                                        <select name="city" lay-verify="required">
+                                        <option value=""></option>
+                                        <option value="0">全部</option>
+                                        <option value="1">未处理</option>
+                                        <option value="2">已处理</option>
+                                        </select>
+                                    </div>
+                                </div>                                
+                            <!-- </div> -->
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">日期范围</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+                                    </div>
+                                </div>
+                            <!-- </div> -->
+                            <!-- <div class="layui-form-item"> -->
+                                <div class="layui-inline">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            <!-- </div> -->
+                        </form>
+                    </div>
+                </fieldset>
+                <fieldset class="layui-elem-field">
+                    <legend>故障处理跟踪</legend>
+                    <div class="layui-field-box">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                <th>故障名称</th>
+                                <th>故障来源</th>
+                                <th>发生时间</th>                                        
+                                <th>处理状态</th>
+                                <th>负责人</th>
+                                <th>操作</th>
+                                </tr> 
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>中国电信</td>
+                                <td>中国电信(苏州)分公司</td>
+                                <td>13：15</td> 
+                                <td><i class="fa fa-dot-circle-o run">在线</i></td>                                                                                       
+                                <td>张三</td>                                                
+                                <td>
+                                    <div class="layui-btn-group">
+                                        <button class="layui-btn layui-btn-sm">
+                                            <i class="fa fa-line-chart"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+</style>
+<script>
+    (function(){
+        layui.use(['form', 'laydate'], function(){
+            var form = layui.form;
+            var laydate = layui.laydate;
+  
+            //常规用法
+            laydate.render({
+                elem: '#test1'
+            });
+            
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+
+            // echarts
+            var myChart = echarts.init(document.getElementById('warn_week_map')); 
+            var myChart1 = echarts.init(document.getElementById('fault_week_chart'));                       
+            function getVirtulData(year) {
+                year = year || '2017';
+                var date = +echarts.number.parseDate(year + '-01-01');
+                var end = +echarts.number.parseDate(year + '-12-31');
+                var dayTime = 3600 * 24 * 1000;
+                var data = [];
+                for (var time = date; time <= end; time += dayTime) {
+                    data.push([
+                        echarts.format.formatTime('yyyy-MM-dd', time),
+                        Math.floor(Math.random() * 10000)
+                    ]);
+                }
+                return data;
+            }
+
+            option = {
+                visualMap: {
+                    show: false,
+                    min: 0,
+                    max: 10000
+                },
+                calendar: {
+                    range: '2017'
+                },
+                series: {
+                    type: 'heatmap',
+                    coordinateSystem: 'calendar',
+                    data: getVirtulData(2017)
+                }
+            };
+
+            option1 = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'负荷',
+                        type:'pie',
+                        radius : [30, 110],
+                        center : ['50%', '50%'],
+                        roseType : 'area',
+                        data:[
+                            {value:10, name:'rose1'},
+                            {value:5, name:'rose2'},
+                            {value:15, name:'rose3'},
+                            {value:25, name:'rose4'},
+                            {value:25, name:'rose5'},
+                        ]
+                    }
+                ]
+            };
+            myChart.setOption(option);
+            myChart1.setOption(option1);
+        });
+    }())
+</script>
