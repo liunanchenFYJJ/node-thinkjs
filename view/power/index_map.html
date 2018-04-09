@@ -47,8 +47,46 @@
             var map = new BMap.Map("allmap");    
             var point = new BMap.Point(120.62, 31.32);    
             map.centerAndZoom(point, 11);        //设置地图默认粒度
+            // map.centerAndZoom("苏州",11);      // 初始化地图,用城市名设置地图中心点            
             map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-            // map.setCurrentCity("苏州"); 
+            map.enableInertialDragging();         //鼠标拖拽
+            map.enableContinuousZoom();          //
+            var size = new BMap.Size(10, 20);
+            map.addControl(new BMap.CityListControl({
+                anchor: BMAP_ANCHOR_TOP_LEFT,
+                offset: size,
+                // 切换城市之间事件
+                // onChangeBefore: function(){
+                //    alert('before');
+                // },
+                // 切换城市之后事件
+                // onChangeAfter:function(){
+                //   alert('after');
+                // }
+            }));
+            var marker = new BMap.Marker(point);        // 创建标注    
+            map.addOverlay(marker);                     // 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            //创建自定义图标
+            var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+            var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+            map.addOverlay(marker2);              // 将标注添加到地图中
+            // function addMarker(point, index){  // 创建图标对象   
+            //     var myIcon = new BMap.Icon("/static/img/factory.png", new BMap.Size(23, 25), {    
+            //         // 指定定位位置。   
+            //         // 当标注显示在地图上时，其所指向的地理位置距离图标左上    
+            //         // 角各偏移10像素和25像素。您可以看到在本例中该位置即是   
+            //         // 图标中央下端的尖角位置。    
+            //         anchor: new BMap.Size(10, 25),    
+            //         // 设置图片偏移。   
+            //         // 当您需要从一幅较大的图片中截取某部分作为标注图标时，您   
+            //         // 需要指定大图的偏移位置，此做法与css sprites技术类似。    
+            //         imageOffset: new BMap.Size(0, 0 - index * 25)   // 设置图片偏移    
+            //     });      
+            //     // 创建标注对象并添加到地图   
+            //     var marker = new BMap.Marker(point, {icon: myIcon});    
+            //     map.addOverlay(marker);    
+            // }    
         });
     }())
 </script>
