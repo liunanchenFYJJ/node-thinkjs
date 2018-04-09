@@ -70,8 +70,16 @@
             map.addOverlay(marker2);              // 将标注添加到地图中
             marker2.addEventListener("click",attribute);
             function attribute(){
-                var p = marker2.getPosition();  //获取marker的位置
-                alert("marker2的位置是" + p.lng + "," + p.lat);    
+                var content = `<h1>helooe</h1>`
+                layer.open({
+                    title: '子站运行简报',
+                    content: content,
+                    shadeClose: true,
+                    btn: ['前往子站', '关闭']
+                    ,yes: function(index, layero){
+                        //按钮【按钮一】的回调
+                    }
+                })
             }
             // marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画            
             // function addMarker(point, index){  // 创建图标对象   
