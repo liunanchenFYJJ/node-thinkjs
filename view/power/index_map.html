@@ -68,29 +68,37 @@
             var myIcon = new BMap.Icon('/static/img/factory.png', new BMap.Size(30,157));
             var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
             map.addOverlay(marker2);              // 将标注添加到地图中
+            var label = new BMap.Label("我是文字标注哦",{offset:new BMap.Size(30,4)});
+	        marker2.setLabel(label);
             marker2.addEventListener("click",attribute);
             function attribute(){
                 var content = ` <div class="layui-row">
-                <div class="layui-col-sm6 layui-col-md3">
+                <div class="layui-col-sm4 layui-col-xs12">
                     <fieldset class="layui-elem-field">
-                        <legend>平台工程总览</legend>
+                        <legend>子站基本情况</legend>
                         <div class="layui-field-box animation1">
                             <div class="layui-row">
                                 <div class="layui-col-sm6 layui-col-xs12">
                                     <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe62c;</i>
                                 </div>
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <span>您的站点:</span>
-                                    <span>在线子站:</span>
-                                    <span>离线子站:</span>
-                                    <span>检修子站:</span>                                        
+                                    <span>子站名称:</span>
+                                    <span>地址:</span>
+                                    <span>电价种类:</span>
+                                    <span>设计容量:</span>                                        
+                                    <span>紧急联系:</span>                                        
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 </div>
-                <div class="layui-col-sm6 layui-col-md3">
-
+                <div class="layui-col-sm8 layui-col-xs12">
+                    <fieldset class="layui-elem-field">
+                        <legend>用能及趋势</legend>
+                        <div class="layui-field-box">
+                            <div id="total_energy_map" style="height: 240px; width: 100%"></div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>`
                 layer.open({
@@ -103,6 +111,7 @@
                     }
                 })
             }
+            var myChart = echarts.init(document.getElementById('total_energy_map')); 
             // marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画            
             // function addMarker(point, index){  // 创建图标对象   
             //     var myIcon = new BMap.Icon("/static/img/factory.png", new BMap.Size(30,157), {    
