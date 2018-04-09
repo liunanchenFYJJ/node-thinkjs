@@ -1,48 +1,94 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>New ThinkJS Application</title>
-<style>
-*{padding: 0;margin: 0;font-size: 16px;line-height: 20px;font-family: arial;}
-a, a:visited{color:#337ab7;text-decoration: none;}
-header{padding: 70px 0 70px 0;background-color: #4A6495}
-h1{font-size: 36px;color:#fff;font-weight: normal;}
-code{  padding: 2px 4px;font-size: 90%;color: #c7254e;background-color: #f9f2f4;border-radius: 4px;}
-.content{width: 1000px;margin: auto}
-.wrap{width: 1000px;margin: auto}
-.content{margin-top: 80px;}
-.list{width: 800px;}
-.list .item{position: relative;padding-left: 70px;margin-top: 50px;}
-.list .item .step{position: absolute;width: 36px;height: 36px;top:-3px;left:0;border: 5px solid #4A6495;border-radius: 23px;text-align: center;line-height: 36px;}
-.list .item h2{font-size: 24px;font-weight: normal;}
-.list .item p{line-height: 30px;margin-top: 10px}
-</style>
-</head>
-<body>
-  <header>
-    <div class="wrap">
-      <h1>A New App Created By ThinkJS</h1>
-    </div>
-  </header>
-  <div class="content">
-    <div class="list">
-      <div class="item">
-        <div class="step">1</div>
-        <h2>Generate Files</h2>
-        <p>Run <code>thinkjs</code> command to create module, controler, model, service and so on. visit <a href="https://thinkjs.org/doc/thinkjs_command.html">https://thinkjs.org/doc/thinkjs_command.html</a> to view more infomation.</p>
+<div id="container" class="layui-row">
+  <blockquote class="layui-elem-quote">
+      巡检总视图,显示巡检整体情况
+  </blockquote>
+  <div class="layui-tab">
+      <ul class="layui-tab-title">
+          <li class="layui-this">巡检总览</li>
+      </ul>
+      <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+              <div class="layui-row">
+                  <div class="layui-col-md4">
+                      <fieldset class="layui-elem-field">
+                          <legend>巡检配置情况</legend>
+                          <div class="layui-field-box">
+                            <ul>
+                              <li>计划巡检子站：<a href="#">3</a></li>
+                              <li>完成巡检子站：<a href="#">3</a></li>
+                              <li>进行巡检子站：<a href="#">3</a></li>
+                              <li>延误巡检子站：<a href="#">3</a></li>
+                              <li>巡检班组：<a href="#">3</a></li>
+                              <li>巡检车辆：<a href="#">3</a></li>
+                            </ul>
+                          </div>
+                      </fieldset>
+                  </div>
+                  <div class="layui-col-md4">
+                    <fieldset class="layui-elem-field">
+                        <legend>本月巡检完成率%</legend>
+                        <div class="layui-field-box">
+
+                        </div>
+                    </fieldset>
+                </div>
+                  <div class="layui-col-md4">
+                      <fieldset class="layui-elem-field">
+                          <legend>巡检质量反馈</legend>
+                          <div class="layui-field-box">
+                            <ul>
+                              <li>巡检客户评分：<a href="#">3</a></li>
+                              <li>巡检服务投诉：<a href="#">3</a></li>
+                              <li>巡检隐患排查：<a href="#">3</a></li>
+                              <li>改进建议：<a href="#">3</a></li>
+                            </ul>
+                          </div>
+                      </fieldset>
+                  </div>
+              </div>
+              <fieldset class="layui-elem-field">
+                  <legend>巡检详细</legend>
+                  <div class="layui-field-box">
+                      <table class="layui-table">
+                          <colgroup>
+                              <col width="150">
+                              <col width="200">
+                              <col>
+                          </colgroup>
+                          <thead>
+                              <tr>
+                              <th>#ID</th>
+                              <th>巡检名称</th>
+                              <th>巡检类型</th>
+                              <th>巡检班组</th>
+                              <th>巡检人员</th>
+                              <th>安排日期</th>
+                              <th>操作</th>
+                              </tr> 
+                          </thead>
+                          <tbody>
+                              <tr>
+                              <td>贤心</td>
+                              <td>2016-11-29</td>
+                              <td>人生就像是一场修行</td>
+                              <td>许闲心</td>
+                              <td>2016-11-28</td>
+                              <td>7</td>
+                              <td>7</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </fieldset>
+          </div>
       </div>
-      <div class="item">
-        <div class="step">2</div>
-        <h2>Documentation</h2>
-        <p>ThinkJS has html and pdf documents. visit <a href="https://thinkjs.org/doc.html">https://thinkjs.org/doc.html</a></p>
-      </div>
-      <div class="item">
-        <div class="step">3</div>
-        <h2>WebSocket</h2>
-        <p>ThinkJS support <code>socket.io</code> and <code>sockjs</code> WebSocket client and server node. visit <a href="https://thinkjs.org/doc/adapter_websocket.html">https://thinkjs.org/doc/adapter_websocket.html</a></p>
-      </div>
-    </div>
   </div>
-</body>
-</html>
+</div>
+<style>
+
+</style>
+<script>
+  (function(){
+
+  }())
+</script>
