@@ -64,15 +64,18 @@
                 //   alert('after');
                 // }
             }));
-            var marker = new BMap.Marker(point);        // 创建标注    
-            map.addOverlay(marker);                     // 将标注添加到地图中
-            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
             //创建自定义图标
-            var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+            var myIcon = new BMap.Icon('/static/img/factory.png', new BMap.Size(30,157));
             var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
             map.addOverlay(marker2);              // 将标注添加到地图中
+            marker2.addEventListener("click",attribute);
+            function attribute(){
+                var p = marker2.getPosition();  //获取marker的位置
+                alert("marker2的位置是" + p.lng + "," + p.lat);    
+            }
+            // marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画            
             // function addMarker(point, index){  // 创建图标对象   
-            //     var myIcon = new BMap.Icon("/static/img/factory.png", new BMap.Size(23, 25), {    
+            //     var myIcon = new BMap.Icon("/static/img/factory.png", new BMap.Size(30,157), {    
             //         // 指定定位位置。   
             //         // 当标注显示在地图上时，其所指向的地理位置距离图标左上    
             //         // 角各偏移10像素和25像素。您可以看到在本例中该位置即是   
