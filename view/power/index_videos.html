@@ -1,0 +1,118 @@
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        视频管理,管理和监测企业子站的视频相关信息
+    </blockquote>
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">视频运行总览</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <fieldset class="layui-elem-field">
+                            <legend>子站视频截图</legend>
+                            <div class="layui-field-box">
+                                <div class="layui-carousel" id="test1">
+                                    <div carousel-item>
+                                        <div>条目1</div>
+                                        <div>条目2</div>
+                                        <div>条目3</div>
+                                        <div>条目4</div>
+                                        <div>条目5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="layui-col-md6">
+                        <fieldset class="layui-elem-field">
+                            <legend>子站告警信息</legend>
+                            <div class="layui-field-box">
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="150">
+                                        <col width="200">
+                                        <col>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                        <th>子站名称</th>
+                                        <th>告警类型</th>
+                                        <th>发生时间</th>
+                                        <th>视频地址</th>
+                                        <th>操作</th>
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>贤心</td>
+                                        <td>2016-11-29</td>
+                                        <td>人生就像是一场修行</td>
+                                        <td>许闲心</td>
+                                        <td>2016-11-28</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field">
+                    <legend>子站视频列表</legend>
+                    <div class="layui-field-box">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                <th>#编号</th>
+                                <th>视频名称</th>
+                                <th>所属子站</th>
+                                <th>安装位置</th>
+                                <th>设备厂家</th>
+                                <th>安装日期</th>
+                                <th>所属子站</th>
+                                <th>操作</th>
+                                </tr> 
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>贤心</td>
+                                <td>2016-11-29</td>
+                                <td>人生就像是一场修行</td>
+                                <td>许闲心</td>
+                                <td>2016-11-28</td>
+                                <td>7</td>
+                                <td>7</td>
+                                <td>7</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+</style>
+<script>
+    (function(){
+        layui.use(['carousel'], function(){
+            var carousel = layui.carousel;
+  
+            //常规用法
+            carousel.render({
+                elem: '#test1'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'always' //始终显示箭头
+            });
+
+        });
+    }())
+</script>
