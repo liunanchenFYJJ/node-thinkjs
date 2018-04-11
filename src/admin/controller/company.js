@@ -41,12 +41,25 @@ export default class extends Base {
     let insertId = await model.add(company);
   }
 
+  // 更新公司信息
+  async updateAction() {
+    let model = this.model('companys');
+    let data = this.post();
+    console.log(data);
+    let updateId = await model.where({
+      id: data.id
+    }).update({cropName: 'jj'});
+    return this.success(data);
+  }
+
+  // 删除公司信息
   async delAction() {
     let model = this.model('companys');
-    let id = this.post('id');
+    let data = this.post();
+    console.log(data + '>>>')
     let delId = await model.where({
-      id: ['=', id]
+      id: data.id
     }).delete();
-    return
+    return this.success(data);
   }
 }
