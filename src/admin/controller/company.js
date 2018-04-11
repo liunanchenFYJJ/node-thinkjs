@@ -18,13 +18,19 @@ export default class extends Base {
     return this.success(data);
   }
 
+  // 分页查询写法
   async getcompayspageAction() {
     let page = this.post('page') || 1;
     let limit = this.post("limit") || 10;
 
     let model = this.model('companys');
     let data = await model.page(page, limit).countSelect();
-    return this.json({code:0,msg:"",count:data.count,data:data.data});
+    return this.json({
+      code: 0,
+      msg: "",
+      count: data.count,
+      data: data.data
+    });
   }
 
   // addCompany
@@ -33,5 +39,14 @@ export default class extends Base {
     let company = this.post();
     console.log(company);
     let insertId = await model.add(company);
+  }
+
+  async delAction() {
+    let model = this.model('companys');
+    let id = this.post('id');
+    let delId = await model.where({
+      id: ['=', id]
+    }).delete();
+    return
   }
 }

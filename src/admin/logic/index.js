@@ -9,7 +9,7 @@ export default class extends think.logic.base {
    * index action logic
    * @return {} []
    */
-  indexAction(){
-   
+  indexAction() {
+    console.log('before login>>>(这里进行数据验证)')
   }
 }
