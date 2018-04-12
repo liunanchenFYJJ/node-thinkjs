@@ -10,11 +10,11 @@
             <div class="layui-tab-item layui-show">
                 <div class="layui-row" style="padding-left: 20px">
                     <div class="layui-col-md4">
-                        <input type="text" required  lay-verify="required" placeholder="模糊检索条件" autocomplete="off" class="layui-input">
+                        <input type="text" placeholder="模糊检索条件" autocomplete="off" class="layui-input" :value="queryValue">
                     </div>
                     <div class="layui-col-md4">
-                        <button class="layui-btn layui-btn-sm" id="query"><i class="fa fa-search"></i>查询</button>
-                        <button class="layui-btn layui-btn-sm" id="add"><i class="fa fa-plus-square-o"></i>增加企业</button>
+                        <button class="layui-btn layui-btn-sm" id="query" @click="query"><i class="fa fa-search"></i>查询</button>
+                        <button class="layui-btn layui-btn-sm" id="add" @click="add"><i class="fa fa-plus-square-o"></i>增加企业</button>
                     </div>
                 </div>
                 <div class="layui-row" id="topContent" v-show="false">
@@ -108,12 +108,12 @@
             var table = layui.table;
 
      
-            $('#add').click(function(){
-                console.log('add')
-            })
-            $('#query').click(function(){
-                console.log('query')
-            })
+            // $('#add').click(function(){
+            //     console.log('add')
+            // })
+            // $('#query').click(function(){
+            //     console.log('query')
+            // })
   
            
             
@@ -139,13 +139,24 @@
 
             var vueMode ={
                 companyList:[],
+                queryValue: 3
             };
 
             var vueApp = new Vue({
                 el:'#container',
                 data:vueMode,
                 methods:{
-                    
+                    query: function(){
+                        console.log(vueMode.queryValue)
+                        let data = {'id': 3}
+                        $.post('/admin/company/getcompanyspage', data, function(e){
+                            console.log(e + '<<<query')
+                        });
+                    },
+                    add: function(){
+                        console.log('add')
+                        $('#topContent').show('slow');                          
+                    }
                 }
             })
 
@@ -153,7 +164,7 @@
             table.render({
                 elem: '#test'
                 ,height: 500
-                ,url:'/admin/company/getcompayspage'
+                ,url:'/admin/company/getcompanyspage'
                 ,method:'POST'
                 ,page: true //开启分页
                 ,done:function(data){

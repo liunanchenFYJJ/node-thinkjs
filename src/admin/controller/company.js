@@ -12,19 +12,24 @@ export default class extends Base {
     return this.display();
   }
 
-  async getcompaysAction() {
+  async getcompanysAction() {
     let model = this.model('companys');
-    let data = await model.select();
+    let query = this.post();
+    let data = await model.where(query).find();
     return this.success(data);
   }
 
   // 分页查询写法
-  async getcompayspageAction() {
+  async getcompanyspageAction() {
     let page = this.post('page') || 1;
     let limit = this.post("limit") || 10;
+    // 查询语句
+    let query = this.post('data');
+    console.log(query);
+
 
     let model = this.model('companys');
-    let data = await model.page(page, limit).countSelect();
+    let data = await model.where(query).page(page, limit).countSelect();
     return this.json({
       code: 0,
       msg: "",
