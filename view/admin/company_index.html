@@ -23,7 +23,13 @@
                         <div class="layui-field-box">
                             <div class="layui-row">
                                 <div class="layui-col-sm4">
-                                    <form class="layui-form" action="admin/company/add" method="POST">
+                                    <form class="layui-form" action="">                                        
+                                        <div class="layui-form-item" v-show="false">
+                                            <label class="layui-form-label">序号</label>
+                                            <div class="layui-input-block">
+                                            <input type="text" name="id" autocomplete="off" class="layui-input" :value="companyList.id">
+                                            </div>
+                                        </div>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">企业名称</label>
                                             <div class="layui-input-block">
@@ -36,10 +42,10 @@
                                             <input type="text" name="cropShortName" required  lay-verify="required" placeholder="企业简称" autocomplete="off" class="layui-input" :value="companyList.cropShortName">
                                             </div>
                                         </div>
-                                        <!-- <div class="layui-form-item">
+                                        <div class="layui-form-item">
                                             <label class="layui-form-label">企业类型</label>
                                             <div class="layui-input-block">
-                                            <select name="cropType" lay-verify="required">
+                                            <select name="cropType">
                                                 <option value="">请选择企业类型</option>
                                                 <option value="0">民营企业</option>
                                                 <option value="1">国营企业</option>
@@ -48,7 +54,7 @@
                                                 <option value="4">其他</option>
                                             </select>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">企业地址</label>
                                             <div class="layui-input-block">
@@ -128,14 +134,11 @@
                 } else if(layEvent === 'edit'){
                     $('#topContent').show('slow');  
                     vueMode.companyList = data;
-                    $.post('/admin/company/update', data, function(e){
-                        console.log(e.data)
-                    })
                 }
             });
 
             var vueMode ={
-                companyList:[]
+                companyList:[],
             };
 
             var vueApp = new Vue({
@@ -180,7 +183,21 @@
   
             //监听提交
             form.on('submit(formDemo)', function(data){
-                layer.msg(JSON.stringify(data.field));
+                // layer.msg(JSON.stringify(data.field));
+                if (data.field.id) {
+                    // update
+                    console.log(data.field.id + 'update' + vueMode.companyList.id)
+                    $.post('/admin/company/update', data.field, function(e){
+                        console.log(e + '<<<update')
+                    });
+                } else {
+                    // add
+                    console.log(data.field.id + 'add' + vueMode.companyList.id)                    
+                    $.post('/admin/company/add', data.field, function(e){
+                        console.log(e + '<<<add')
+                    })
+                }
+                
                 // return false;
             });
 

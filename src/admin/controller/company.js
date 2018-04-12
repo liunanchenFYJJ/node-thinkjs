@@ -36,19 +36,31 @@ export default class extends Base {
   // addCompany
   async addAction() {
     let model = this.model('companys');
-    let company = this.post();
-    console.log(company);
-    let insertId = await model.add(company);
+    let data = this.post();
+    console.log(data.id + 'add');
+    let result = await model.thenAdd(data, {
+      id: data.id
+    });
+    // return this.redirect('index');            
+    // return this.display();
+    return this.success(result);
   }
 
-  // 更新公司信息
+  // // 更新公司信息
   async updateAction() {
     let model = this.model('companys');
     let data = this.post();
     console.log(data);
     let updateId = await model.where({
       id: data.id
-    }).update({cropName: 'jj'});
+    }).update({
+      cropName: data.cropName,
+      cropShortName: data.cropShortName,
+      cropType: data.cropType,
+      cropAddress: data.cropAddress,
+      cropUrl: data.cropUrl,
+      cropNotes: data.cropNotes,
+    });
     return this.success(data);
   }
 
@@ -56,7 +68,7 @@ export default class extends Base {
   async delAction() {
     let model = this.model('companys');
     let data = this.post();
-    console.log(data + '>>>')
+    // console.log(data + '>>>')
     let delId = await model.where({
       id: data.id
     }).delete();
