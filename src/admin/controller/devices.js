@@ -27,4 +27,54 @@ export default class extends Base {
       msg: 'success'
     });
   }
+
+  async delAction() {
+    let model = this.model('devices');
+    let post = this.post();
+    let delId = await model.where({
+      id: post.id
+    }).delete();
+    return this.success(delId);
+  }
+
+  async updateAction() {
+    let model = this.model('devices');
+    let post = this.post();
+    console.log(post);
+    let updateId = await model.where({
+      id: post.id
+    }).update({
+      devCode: post.devCode,
+      catelogCode: post.catelogCode,
+      devType: post.devType,
+      alias: post.alias,
+      name: post.name,
+      manufactures: post.manufactures,
+      gbName: post.gbName
+    });
+    return this.success(updateId)
+    // let data = await model.where({
+    //   id: updateId
+    // }).find();
+    // return this.json({
+    //   code: 0,
+    //   msg: 'success',
+    //   count: 1,
+    //   data: data
+    // });
+  }
+
+  async addAction() {
+    let model = this.model('devices');
+    let post = this.post();
+    let addId = await model.add({
+      devCode: post.devCode,
+      catelogCode: post.catelogCode,
+      devType: post.devType,
+      alias: post.alias,
+      name: post.name,
+      manufactures: post.manufactures,
+      gbName: post.gbName
+    })
+  }
 }
