@@ -1,0 +1,244 @@
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        用户信息管理
+    </blockquote>
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">用户列表</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-row" style="padding-left: 20px">
+                    <div class="layui-col-md4">
+                        <input type="text" placeholder="模糊检索条件" autocomplete="off" id="demoReload" class="layui-input" v-model="queryValue">
+                    </div>
+                    <div class="layui-col-md4">
+                        <button class="layui-btn layui-btn-sm" id="query" @click="query"><i class="fa fa-search"></i>查询</button>
+                        <button class="layui-btn layui-btn-sm" id="add" @click="add"><i class="fa fa-plus-square-o"></i>增加用户</button>
+                    </div>
+                </div>
+                <div class="layui-row" id="topContent" v-show="false">
+                    <fieldset class="layui-elem-field">
+                        <legend>企业信息</legend>
+                        <div class="layui-field-box">
+                            <div class="layui-row">
+                                <div class="layui-col-sm4">
+                                    <form class="layui-form" action="">                                        
+                                        <div class="layui-form-item" v-show="false">
+                                            <label class="layui-form-label">序号</label>
+                                            <div class="layui-input-block">
+                                            <input type="text" name="id" autocomplete="off" class="layui-input" :value="devicesList.id">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">设备代码</label>
+                                            <div class="layui-input-block">
+                                            <input type="text" name="devCode" required  lay-verify="required" placeholder="设备代码" autocomplete="off" class="layui-input" :value="devicesList.devCode">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">国家产品目录</label>
+                                            <div class="layui-input-block">
+                                            <input type="text" name="catelogCode" required  lay-verify="required" placeholder="国家产品目录" autocomplete="off" class="layui-input" :value="devicesList.catelogCode">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">设备类型</label>
+                                            <div class="layui-input-block">
+                                            <select name="devType">
+                                                <option value="">请选择设备类型</option>
+                                                <option value="0">民营企业</option>
+                                                <option value="1">国营企业</option>
+                                                <option value="2">外资企业</option>
+                                                <option value="3">合资企业</option>
+                                                <option value="4">其他</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">设备名称</label>
+                                            <div class="layui-input-block">
+                                            <input type="text" name="name" required  lay-verify="required" placeholder="设备名称" autocomplete="off" class="layui-input" :value="devicesList.name">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">设备别名</label>
+                                            <div class="layui-input-block">
+                                            <input type="text" name="aliasName" required  lay-verify="required" placeholder="设备别名" autocomplete="off" class="layui-input" :value="devicesList.aliasName">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">生产厂家</label>
+                                            <div class="layui-input-block">
+                                            <textarea name="manufactures" placeholder="请输入内容" class="layui-textarea" placeholder="生产厂家" :value="devicesList.manufactures"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">执行标准</label>
+                                            <div class="layui-input-block">
+                                            <textarea name="gbName" placeholder="请输入内容" class="layui-textarea" placeholder="执行标准" :value="devicesList.gbName"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-input-block">
+                                            <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="layui-field-box">
+                    <table class="layui-hide" id="demo" lay-filter="test"></table>
+                    <script type="text/html" id="barDemo">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+</style>
+<script>
+    (function(){
+        layui.use('table', function(){
+            var table = layui.table;
+            var layer = layui.layer;
+            var form = layui.form;
+            var $ = layui.$;            
+            
+            var vueMode ={
+                devicesList:[],
+                queryValue: ''
+            };
+
+            var vueApp = new Vue({
+                el:'#container',
+                data:vueMode,
+                methods:{
+                    query: function(){
+                        let data = {'devCode': vueMode.queryValue}
+                        console.log(data)
+                        // $.post('/admin/users/getlist', data, function(e){
+                        //     console.log(e + '<<<query')
+                        // });       
+                        //搜索
+                        tablefunc.reload({
+                            where: { //设定异步数据接口的额外参数，任意设
+                                // 模糊查询?
+                                devCode: data.devCode
+                            }
+                            ,page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });                 
+                    },
+                    add: function(){
+                        console.log('add')
+                        $('#topContent').show('slow');                          
+                    }
+                }
+            })
+
+            // 表格渲染方法, 每次操作数据库之后进行getlist操作
+            // 这种写法是为了与table.reload写法
+            var tablefunc = table.render({
+                                elem: '#demo'
+                                ,height: 500
+                                ,url: '/admin/users/getlist' //数据接口
+                                ,method: 'POST'
+                                ,page: true //开启分页                
+                                ,cols: [[ //表头
+                                {field: 'id', title: '序号', width:80, sort: true}
+                                ,{field: 'usName', title: '用户名称', width:80}
+                                ,{field: 'roleCode', title: '角色名称', width:80, sort: true}
+                                ,{field: 'usEmail', title: '电子邮件', width:80} 
+                                ,{field: 'isAdmin', title: '系统管理员', width: 177}
+                                ,{field: 'createDate', title: '注册日期', width: 80, sort: true}
+                                ,{field: 'cropCode', title: '隶属企业', width: 80, sort: true}
+                                ,{fixed: 'right',title: '操作', width: 165, align:'center', toolbar: '#barDemo'}                
+                                ]]
+                            });
+                
+            var flux = function() {
+                table.render({
+                    elem: '#demo'
+                    ,height: 500
+                    ,url: '/admin/users/getlist' //数据接口
+                    ,method: 'POST'
+                    ,page: true //开启分页                
+                    ,cols: [[ //表头
+                    {field: 'id', title: '序号', width:80, sort: true}
+                    ,{field: 'usName', title: '用户名称', width:80}
+                    ,{field: 'roleCode', title: '角色名称', width:80, sort: true}
+                    ,{field: 'usEmail', title: '电子邮件', width:80} 
+                    ,{field: 'isAdmin', title: '系统管理员', width: 177}
+                    ,{field: 'createDate', title: '注册日期', width: 80, sort: true}
+                    ,{field: 'cropCode', title: '隶属企业', width: 80, sort: true}
+                    ,{fixed: 'right',title: '操作', width: 165, align:'center', toolbar: '#barDemo'}                
+                    ]]
+                });
+            }
+
+            //监听工具条
+            table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+                
+                if(layEvent === 'del'){ //删除
+                    layer.confirm('真的删除行么', function(index){
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                        //向服务端发送删除指令
+                        $.post('/admin/users/del', data, function(e){
+                            console.log(e + '<<<')
+                        });
+                    });
+                } else if(layEvent === 'edit'){ //编辑
+                    //do something
+                    $('#topContent').show('slow');  
+                    vueMode.devicesList = data;
+                    console.log(vueMode.devicesList);                    
+                    //同步更新缓存对应的值
+                    // obj.update({
+                    // username: '123'
+                    // ,title: 'xxx'
+                    // });
+                }
+            });
+
+            form.on('submit(formDemo)', function(data){
+                $('#topContent').hide('slow');                  
+                //console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+                //console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+                //console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+                if (data.field.id) {
+                    // update
+                    console.log(data.field);
+                    $.post('/admin/users/update', data.field, function(data){
+                        console.log('update')
+                    });
+                    flux();
+                } else {
+                    // add
+                    console.log(data.field);                    
+                    $.post('/admin/users/add', data.field, function(data){
+                        console.log('add')
+                    });
+                    flux();
+                }
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+        
+        });
+    }())
+</script>
