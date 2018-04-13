@@ -124,10 +124,21 @@
                 data:vueMode,
                 methods:{
                     query: function(){
-                        let data = {'id': 3}
-                        $.post('/admin/company/getcompanyspage', data, function(e){
-                            console.log(e + '<<<query')
-                        });
+                        let data = {'devCode': vueMode.queryValue}
+                        console.log(data)
+                        // $.post('/admin/devices/getlist', data, function(e){
+                        //     console.log(e + '<<<query')
+                        // });       
+                        //搜索
+                        tablefunc.reload({
+                            where: { //设定异步数据接口的额外参数，任意设
+                                // 模糊查询?
+                                devCode: data.devCode
+                            }
+                            ,page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });                 
                     },
                     add: function(){
                         console.log('add')
@@ -136,15 +147,34 @@
                 }
             })
 
-            //表格渲染方法, 每次操作数据库之后进行getlist操作
-            var tablefunc = function() {
+            // 表格渲染方法, 每次操作数据库之后进行getlist操作
+            // 这种写法是为了与table.reload写法
+            var tablefunc = table.render({
+                                elem: '#demo'
+                                ,height: 500
+                                ,url: '/admin/devices/getlist' //数据接口
+                                ,method: 'POST'
+                                ,page: true //开启分页                
+                                ,cols: [[ //表头
+                                {field: 'id', title: '序号', width:80, sort: true}
+                                ,{field: 'devCode', title: '设备代码', width:80}
+                                ,{field: 'catelogCode', title: '国家产品目录', width:80, sort: true}
+                                ,{field: 'devType', title: '设备类型', width:80} 
+                                ,{field: 'name', title: '设备名称', width: 177}
+                                ,{field: 'aliasName', title: '设备别名', width: 80, sort: true}
+                                ,{field: 'manufactures', title: '生产厂家', width: 80, sort: true}
+                                ,{field: 'gbName', title: '执行标准', width: 80}
+                                ,{fixed: 'right',title: '操作', width: 165, align:'center', toolbar: '#barDemo'}                
+                                ]]
+                            });
+                
+            var flux = function() {
                 table.render({
                     elem: '#demo'
                     ,height: 500
                     ,url: '/admin/devices/getlist' //数据接口
                     ,method: 'POST'
-                    ,page: true //开启分页
-                    ,id:'testReload'                
+                    ,page: true //开启分页                
                     ,cols: [[ //表头
                     {field: 'id', title: '序号', width:80, sort: true}
                     ,{field: 'devCode', title: '设备代码', width:80}
@@ -158,8 +188,6 @@
                     ]]
                 });
             }
-
-            tablefunc();
 
             //监听工具条
             table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -200,17 +228,19 @@
                     $.post('/admin/devices/update', data.field, function(data){
                         console.log('update')
                     });
-                    tablefunc();
+                    flux();
                 } else {
                     // add
                     console.log(data.field);                    
                     $.post('/admin/devices/add', data.field, function(data){
                         console.log('add')
                     });
-                    tablefunc();
+                    flux();
                 }
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
+
+        
         });
     }())
 </script>

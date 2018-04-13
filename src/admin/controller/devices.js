@@ -12,22 +12,61 @@ export default class extends Base {
     return this.display();
   }
 
+  // getlist && query
+  // async getlistAction() {
+  //   let model = this.model('devices');
+  //   let page = this.post('page');
+  //   let limit = this.post('limit');
+  //   let post = this.post();
+  //   console.log(post);
+  //   if (!post.devCode) {
+  //     post = '1=1';
+  //   }
+  //   let data = await model.where(post).page(page, limit).countSelect();
+  //   // 把取到数据按照layui-table默认的格式传回
+  //   return this.json({
+  //     count: data.count,
+  //     data: data.data,
+  //     code: 0,
+  //     msg: 'success'
+  //   });
+  // }
+
   async getlistAction() {
     let model = this.model('devices');
     let page = this.post('page');
     let limit = this.post('limit');
+    // 搜索框填了才有
     let post = this.post();
-    console.log(post);
-    let data = await model.page(page, limit).countSelect();
+    if (!post.devCode) {
+      let data = await model.page(page, limit).countSelect();
+      return this.json({
+        count: data.count,
+        data: data.data,
+        code: 0,
+        msg: 'success'
+      });
+    } else {
+      let data = await model.where({
+        devCode: post.devCode
+      }).page(page, limit).countSelect();
+      return this.json({
+        count: data.count,
+        data: data.data,
+        code: 0,
+        msg: 'success'
+      });
+    }          
     // 把取到数据按照layui-table默认的格式传回
-    return this.json({
-      count: data.count,
-      data: data.data,
-      code: 0,
-      msg: 'success'
-    });
+    // return this.json({
+    //   count: data.count,
+    //   data: data.data,
+    //   code: 0,
+    //   msg: 'success'
+    // });
   }
 
+  // del
   async delAction() {
     let model = this.model('devices');
     let post = this.post();
@@ -37,6 +76,7 @@ export default class extends Base {
     return this.success(delId);
   }
 
+  // update
   async updateAction() {
     let model = this.model('devices');
     let post = this.post();
@@ -64,6 +104,7 @@ export default class extends Base {
     // });
   }
 
+  // add
   async addAction() {
     let model = this.model('devices');
     let post = this.post();
@@ -76,5 +117,17 @@ export default class extends Base {
       manufactures: post.manufactures,
       gbName: post.gbName
     })
+    return this.success(addId);
+  }
+
+  async queryAction() {
+    let model = this.model('devices');
+    let post = this.post();
+    console.log(post);
+    if (!post.devCode) {
+      post = '1=1';
+    }
+    let data = await model.where(post).page(1, 10).select();
+    return this.success(data);
   }
 }
