@@ -1,0 +1,39 @@
+<div class="layui-row">
+    <div class="layui-col-sm4">
+        <fieldset class="layui-elem-field">
+            <legend>子站基本情况</legend>
+            <div class="layui-field-box animation1">
+                <div class="layui-row">
+                    <div class="layui-col-sm6 layui-col-xs12">
+                        <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe62c;</i>
+                    </div>
+                    <div class="layui-col-sm6 layui-col-xs12">
+                        <span>子站名称:</span>
+                        <span>地址:</span>
+                        <span>电价种类:</span>
+                        <span>设计容量:</span>                                        
+                        <span>紧急联系:</span>                                        
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="layui-col-sm8">
+        <fieldset class="layui-elem-field">
+            <legend>用能及趋势</legend>
+            <div class="layui-field-box">
+                <div id="total_energy_map" style="height: 240px; width: 100%"></div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<script>
+    (function(){
+        layui.use('element', function(){
+            var element = layui.element;
+            
+            //监听
+            
+        });
+    }())
+</script>

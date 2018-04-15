@@ -17,6 +17,11 @@ export default class extends Base {
     return this.display();
   }
 
+  contentAction(){
+    //auto render template file index_index.html
+    return this.display();
+  }
+
   operatorAction(){
     //auto render template file index_index.html
     return this.display();

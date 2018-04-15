@@ -1,27 +1,37 @@
 <div id="container" class="layui-row">
     <blockquote class="layui-elem-quote">
         站点分布,以地图方式显示站点运行信息
-        <!-- <form class="layui-form" action="">
-            <div class="layui-form-item">
-                <label class="layui-form-label">选择框</label>
-                <div class="layui-input-block">
-                    <select name="city" lay-verify="required">
+        <!-- <div class="layui-form-item"> -->
+            <div class="layui-inline">
+                <label class="layui-form-label">地图模式</label>
+                <div class="layui-input-inline">
+                    <select name="city">
                         <option value=""></option>
-                        <option value="0">北京</option>
-                        <option value="1">上海</option>
-                        <option value="2">广州</option>
-                        <option value="3">深圳</option>
-                        <option value="4">杭州</option>
+                        <option value="0">自动判断</option>
+                        <option value="1">白天模式</option>
+                        <option value="2">夜间模式</option>
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <div class="layui-inline">
+                <label class="layui-form-label">状态过滤</label>
+                <div class="layui-input-inline">
+                    <select name="status">
+                        <option value=""></option>
+                        <option value="0">全部</option>
+                        <option value="1">在线</option>
+                        <option value="2">离线</option>
+                        <option value="3">抢修</option>
+                    </select>
                 </div>
             </div>
-        </form> -->
+            <div class="layui-inline">
+                <label class="layui-form-label">站点定位</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        <!-- </div> -->
     </blockquote>
     <div id="allmap"  class="layui-row"></div>
 </div>
@@ -37,12 +47,9 @@
 <script>
     (function(){
         layui.use('form', function(){
-            var form = layui.form;
-            //监听提交
-            form.on('submit(formDemo)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
+            var $ = layui.$;
+            // 监听条件搜索
+
             // 使用地图
             var map = new BMap.Map("allmap");    
             var point = new BMap.Point(120.62, 31.32);    
@@ -68,50 +75,44 @@
             var myIcon = new BMap.Icon('/static/img/factory.png', new BMap.Size(30,157));
             var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
             map.addOverlay(marker2);              // 将标注添加到地图中
-            var label = new BMap.Label("我是文字标注哦",{offset:new BMap.Size(30,4)});
+            var label = new BMap.Label("某监测点",{offset:new BMap.Size(30,4)});
+            label.setStyle({
+                color : "yellow",
+                backgroundColor: "grey",
+                border: "none",
+                fontSize : "12px",
+                height : "20px",
+                lineHeight : "20px",
+                fontFamily:"微软雅黑"
+            });
 	        marker2.setLabel(label);
             marker2.addEventListener("click",attribute);
             function attribute(){
-                var content = ` <div class="layui-row">
-                <div class="layui-col-sm4 layui-col-xs12">
-                    <fieldset class="layui-elem-field">
-                        <legend>子站基本情况</legend>
-                        <div class="layui-field-box animation1">
-                            <div class="layui-row">
-                                <div class="layui-col-sm6 layui-col-xs12">
-                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe62c;</i>
-                                </div>
-                                <div class="layui-col-sm6 layui-col-xs12">
-                                    <span>子站名称:</span>
-                                    <span>地址:</span>
-                                    <span>电价种类:</span>
-                                    <span>设计容量:</span>                                        
-                                    <span>紧急联系:</span>                                        
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class="layui-col-sm8 layui-col-xs12">
-                    <fieldset class="layui-elem-field">
-                        <legend>用能及趋势</legend>
-                        <div class="layui-field-box">
-                            <div id="total_energy_map" style="height: 240px; width: 100%"></div>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>`
+                //多窗口模式，层叠置顶
+                var that = this;
                 layer.open({
-                    title: '子站运行简报',
-                    content: content,
-                    shadeClose: true,
-                    btn: ['前往子站', '关闭']
-                    ,yes: function(index, layero){
-                        //按钮【按钮一】的回调
+                    type: 2 //此处以iframe举例
+                    ,title: '子站运行简报'                 
+                    ,area: ['800px', '400px']
+                    ,shadeClose: true
+                    ,maxmin: true
+                    ,offset: 'auto'
+                    ,content: '/power/index/content.html'
+                    ,btn: ['前往子站', '关闭'] //只是为了演示
+                    ,yes: function(){
+                        $(that).click(); 
                     }
-                })
+                    ,btn2: function(){
+                        layer.closeAll();
+                    }
+                    
+                    ,zIndex: layer.zIndex //重点1
+                    ,success: function(layero){
+                        layer.setTop(layero); //重点2
+                    }
+                });
             }
-            var myChart = echarts.init(document.getElementById('total_energy_map')); 
+            // var myChart = echarts.init(document.getElementById('total_energy_map')); 
             // marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画            
             // function addMarker(point, index){  // 创建图标对象   
             //     var myIcon = new BMap.Icon("/static/img/factory.png", new BMap.Size(30,157), {    
@@ -128,7 +129,21 @@
             //     // 创建标注对象并添加到地图   
             //     var marker = new BMap.Marker(point, {icon: myIcon});    
             //     map.addOverlay(marker);    
-            // }    
+            // }  
+            // 随机向地图添加25个标注
+            function addMarker(point){
+                var marker = new BMap.Marker(point);
+                map.addOverlay(marker);
+            }
+            var bounds = map.getBounds();
+            var sw = bounds.getSouthWest();
+            var ne = bounds.getNorthEast();
+            var lngSpan = Math.abs(sw.lng - ne.lng);
+            var latSpan = Math.abs(ne.lat - sw.lat);
+            for (var i = 0; i < 3; i ++) {
+                var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+                addMarker(point);
+            }  
         });
     }())
 </script>
