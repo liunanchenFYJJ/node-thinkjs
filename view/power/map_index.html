@@ -107,18 +107,19 @@
                         ,shadeClose: true
                         ,maxmin: true
                         ,offset: 'auto'
+                        // ,content: '跳转'
                         ,content: '/power/index/content.html'
                         ,btn: ['前往子站', '关闭'] //只是为了演示
                         ,yes: function(){
-                            $(that).click(); 
+                            console.log('hello');
+                            window.location.href='/custom/station/main';
+                            // var data = {prjCode: , token: }
+                            // $.post('/custom/index/index', {}, function(e){
+                            //     console.log(e);
+                            // })
                         }
                         ,btn2: function(){
                             layer.close();
-                        }
-                        
-                        ,zIndex: layer.zIndex //重点1
-                        ,success: function(layero){
-                            layer.setTop(layero); //重点2
                         }
                     });
                 }
