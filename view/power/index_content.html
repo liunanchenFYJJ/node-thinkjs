@@ -27,12 +27,17 @@
         </fieldset>
     </div>
 </div>
+<script src="/static/layui/layui.js"></script>
 <script>
     (function(){
         layui.use('element', function(){
             var element = layui.element;
+            var $ = layui.$;
             
             //监听
+            $.post('/power/index/content', 17, function(e){
+                console.log(e);
+            });
             
         });
     }())

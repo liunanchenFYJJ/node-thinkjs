@@ -1,0 +1,138 @@
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        站点分布,以地图方式显示站点运行信息
+        <!-- <div class="layui-form-item"> -->
+            <div class="layui-inline">
+                <label class="layui-form-label">地图模式</label>
+                <div class="layui-input-inline">
+                    <select name="city">
+                        <option value=""></option>
+                        <option value="0">自动判断</option>
+                        <option value="1">白天模式</option>
+                        <option value="2">夜间模式</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">状态过滤</label>
+                <div class="layui-input-inline">
+                    <select name="status">
+                        <option value=""></option>
+                        <option value="0">全部</option>
+                        <option value="1">在线</option>
+                        <option value="2">离线</option>
+                        <option value="3">抢修</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">站点定位</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        <!-- </div> -->
+    </blockquote>
+    <div id="allmap"  class="layui-row"></div>
+</div>
+<style>
+    #container{
+        width: 100%-200px;
+        height: 808px;
+    }
+    #allmap{
+        width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";
+    }
+</style>
+<script>
+    (function(){
+        layui.use('form', function(){
+            var $ = layui.$;
+            var vueMode = {
+                projectslist: []
+            }
+            var app = new Vue({
+                el: '#container',
+                data: vueMode
+            });
+            // 监听条件搜索
+
+            // 使用地图
+            var map = new BMap.Map("allmap");    
+            var point = new BMap.Point(120.62, 31.32);    
+            map.centerAndZoom(point, 11);        //设置地图默认粒度
+            // map.centerAndZoom("苏州",11);      // 初始化地图,用城市名设置地图中心点            
+            map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+            map.enableInertialDragging();         //鼠标拖拽
+            map.enableContinuousZoom();          //
+            var size = new BMap.Size(10, 20);
+            map.addControl(new BMap.CityListControl({
+                anchor: BMAP_ANCHOR_TOP_LEFT,
+                offset: size,
+                // 切换城市之间事件
+                // onChangeBefore: function(){
+                //    alert('before');
+                // },
+                // 切换城市之后事件
+                // onChangeAfter:function(){
+                //   alert('after');
+                // }
+            }));
+            // 添加点
+            function addMarker(point, data){
+                //创建自定义图标
+                var myIcon = new BMap.Icon('/static/img/factory.png', new BMap.Size(30,157));
+                var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+                map.addOverlay(marker2);              // 将标注添加到地图中
+                var label = new BMap.Label(data.prjShortName, {offset:new BMap.Size(30,4)});
+                label.setStyle({
+                    color : "yellow",
+                    backgroundColor: "grey",
+                    border: "none",
+                    fontSize : "12px",
+                    height : "20px",
+                    lineHeight : "20px",
+                    fontFamily:"微软雅黑"
+                });
+                marker2.setLabel(label);
+                marker2.addEventListener("click",attribute);
+                function attribute(){
+                    //多窗口模式，层叠置顶 
+                    console.log(data);              
+                    var that = this;
+                    layer.open({
+                        type: 2 //此处以iframe举例
+                        ,title: '子站运行简报'                 
+                        ,area: ['800px', '400px']
+                        ,shadeClose: true
+                        ,maxmin: true
+                        ,offset: 'auto'
+                        ,content: '/power/index/content.html'
+                        ,btn: ['前往子站', '关闭'] //只是为了演示
+                        ,yes: function(){
+                            $(that).click(); 
+                        }
+                        ,btn2: function(){
+                            layer.close();
+                        }
+                        
+                        ,zIndex: layer.zIndex //重点1
+                        ,success: function(layero){
+                            layer.setTop(layero); //重点2
+                        }
+                    });
+                }
+            }
+            // 获取工程列表
+            $.post('/power/map/getprojectlist', {}, function(e){
+                vueMode.projectslist = e.data;
+                for (var i = 0; i < vueMode.projectslist.length; i ++) {
+                    var point = new BMap.Point(vueMode.projectslist[i].prjLon, vueMode.projectslist[i].prjLat);
+                    addMarker(point, vueMode.projectslist[i]);
+                } 
+            });
+
+
+        });
+    }())
+</script>
