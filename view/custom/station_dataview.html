@@ -1,1 +1,55 @@
-station_dataview
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        数据视图-实时显示监测点数据
+    </blockquote>
+    <div class="layui-row">
+        <div class="layui-col-md9">
+            <div id="chartMap"></div>
+            <blockquote>数据项列表</blockquote>
+            <table id="demo" lay-filter="test"></table>
+        </div>
+        <div class="layui-col-md3">
+            <fieldset class="layui-elem-field">
+                <legend><h4>监测点列表</h4></legend>
+                <div class="layui-field-box" style="min-height: 200px">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </fieldset>
+            <fieldset class="layui-elem-field">
+                <legend><h4>历史收藏</h4></legend>
+                <div class="layui-field-box" style="min-height: 200px">
+                    
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<style>
+
+</style>
+<script>
+    (function(){
+        layui.use(['table'], function(){
+            var table = layui.table;
+            var $ = layui.$;
+              //第一个实例
+            table.render({
+                elem: '#demo'
+                ,height: 315
+                ,url: '/demo/table/user/' //数据接口
+                ,page: true //开启分页
+                ,cols: [[ //表头
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'username', title: '用户名', width:80}
+                ,{field: 'sex', title: '性别', width:80, sort: true}
+                ,{field: 'city', title: '城市', width:80} 
+                ,{field: 'sign', title: '签名', width: 177}
+                ,{field: 'experience', title: '积分', width: 80, sort: true}
+                ,{field: 'score', title: '评分', width: 80, sort: true}
+                ,{field: 'classify', title: '职业', width: 80}
+                ,{field: 'wealth', title: '财富', width: 135, sort: true}
+                ]]
+            });
+        });
+    }())
+</script>

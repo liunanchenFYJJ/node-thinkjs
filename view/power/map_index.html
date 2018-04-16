@@ -126,11 +126,13 @@
             }
             // 获取工程列表
             $.post('/power/map/getprojectlist', {}, function(e){
-                vueMode.projectslist = e.data;
-                for (var i = 0; i < vueMode.projectslist.length; i ++) {
-                    var point = new BMap.Point(vueMode.projectslist[i].prjLon, vueMode.projectslist[i].prjLat);
-                    addMarker(point, vueMode.projectslist[i]);
-                } 
+                if (e.data) {
+                    vueMode.projectslist = e.data;
+                    for (var i = 0; i < vueMode.projectslist.length; i ++) {
+                        var point = new BMap.Point(vueMode.projectslist[i].prjLon, vueMode.projectslist[i].prjLat);
+                        addMarker(point, vueMode.projectslist[i]);
+                    } 
+                }
             });
 
 
