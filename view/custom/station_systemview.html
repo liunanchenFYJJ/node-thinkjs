@@ -1,1 +1,18 @@
-station_systemview
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        系统一次接线图
+        <i class="fa fa-search-minus" id="zoomin"></i>
+        <i class="fa fa-search-plus" id="zoomout"></i>
+    </blockquote>
+    <div id="drawing"></div>
+</div>
+<style>
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.4/svg.js"></script>
+<script>
+    (function(){
+        var draw = SVG('drawing').size(300, 300);
+        var rect = draw.rect(100, 100).attr({fill: '#f06'});
+    }())
+</script>
