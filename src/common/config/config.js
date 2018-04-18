@@ -4,5 +4,7 @@
  */
 export default {
   //key: value
-  default_module: 'admin'
+  default_module: 'custom',
+  timeout: 30,
+  // deny_module_list: ['admin']
 };

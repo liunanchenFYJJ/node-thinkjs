@@ -20,5 +20,10 @@ export default {
     mongo: {
 
     }
+  },
+  cache: {
+    on: true,
+    type: '', 
+    timeout: 3600
   }
 };
