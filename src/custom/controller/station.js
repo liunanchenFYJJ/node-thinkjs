@@ -31,4 +31,14 @@ export default class extends Base {
         //auto render template file index_index.html
         return this.display();
     }
+
+    viewlistAction() {
+        //auto render template file index_index.html
+        return this.display();
+    }
+
+    workplanAction() {
+        //auto render template file index_index.html
+        return this.display();
+    }
 }
