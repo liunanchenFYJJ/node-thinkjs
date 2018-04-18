@@ -1,54 +1,124 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>联电能源综合服务平台</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <!-- layui样式 -->
-  <link rel="stylesheet" href="/static/layui/css/layui.css">
-  <!-- font-awesome样式 -->
-  <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.css">
-  <link rel="stylesheet" href="/static/ztree/zTreeStyle.css">
-</head>
-
-<body class="layui-layout-body">
-  <div class="layui-layout layui-layout-admin">
-
-
-    <%include parts/header%>
-      <%include parts/left-nav%>
-
-        <div id="wrapp" class="layui-body bevel tlbr" style="width: auto; margin-left: 0px;">
-          <!-- 内容主体区域 -->
+<div id="container">
+  <blockquote class="layui-elem-quote">
+    运行总览
+  </blockquote>
+  <div class="layui-row">
+    <div class="layui-col-md4">
+      <fieldset>
+        <legend>站点基本信息</legend>
+        <div class="layui-field-box">
+          <div class="layui-row"><div id="prj_logo"></div></div>
+          <div class="layui-row">
+            <div class="layui-col-md6"><i class="fa fa-industry"></i>站点名称:</div>
+            <div class="layui-col-md6"><i class="fa fa-plug"></i>通信网关:</div>
+          </div>
+          <div class="layui-row">
+            <div class="layui-col-md6"><i class="fa fa-calendar-minus-o"></i>运行日期:</div>
+            <div class="layui-col-md6"><i class="fa fa-cubes"></i>监测点数:</div>
+          </div>
+          <div class="layui-row">
+            <div class="layui-col-md6"><i class="fa fa-paper-plane-o"></i>平台上报:</div>
+            <div class="layui-col-md6"><i class="fa fa-circle run"></i>通信状态:</div>
+          </div>          
+        </div>
+      </fieldset>
+    </div>
+    <div class="layui-col-md4">
+      <fieldset>
+        <legend>用能分项汇总</legend>
+        <div class="layui-field-box">
 
         </div>
+      </fieldset>
+    </div>
+    <div class="layui-col-md4">
+      <fieldset>
+        <legend>主变用能占比</legend>
+        <div class="layui-field-box">
 
-
+        </div>
+      </fieldset>
+    </div>
   </div>
-  <!-- 百度地图 -->
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iE6Nttmdl4TXocGQHgYh0W44aeERi4Gs"></script> 
-   <!-- layui  -->
-  <script src="/static/layui/layui.js"></script>  
-  <!-- vue -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  <!-- echarts -->
-  <script src="/static/js/echarts.js"></script>
-  <!-- ztree -->
-  <script src="/static/ztree/jquery-1.4.4.min.js"></script>    
-  <script src="/static/ztree/jquery.ztree.core.js"></script>  
-  <!-- ejs模板 -->
-  <script src="/static/js/ejs.js"></script>
-  <!-- 自定义 -->
-  <script src="/static/js/main.js"></script>    
-  <script>
-    //JavaScript代码区域
-    layui.use('element', function () {
-      var element = layui.element;
+  <div class="layui-row">
+    <div class="layui-col-md4">
+      <fieldset>
+        <legend><i class="fa fa-pie-chart p_title"></i>用能行为分析(单位:kwh)</legend>
+        <div class="layui-field-box">
+          <ul>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>最高日用能:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>最低日用能:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>日平均用能:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>昨日用电量:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>今日用电量:</li>
+          </ul>
+        </div>
+      </fieldset>
+    </div>
+    <div class="layui-col-md8">
+      <fieldset>
+        <legend><i class="fa fa-line-chart p_title"></i>子站用能趋势图</legend>
+        <div class="layui-field-box">
+          
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="layui-row">
+    <div class="layui-col-md4">
+      <fieldset>
+        <legend><i class="fa fa-line-chart p_title"></i>重要运行指标</legend>
+        <div class="layui-field-box">
+          <ul>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>最高日用能:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>最低日用能:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>日平均用能:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>昨日用电量:</li>
+            <li><span class="layui-badge-dot layui-bg-orange"></span>今日用电量:</li>
+          </ul>
+        </div>
+      </fieldset>
+    </div>
+    <div class="layui-col-md8">
+      <fieldset>
+        <legend><i class="fa fa-line-chart p_title"></i>子站负荷趋势</legend>
+        <div class="layui-field-box">
+          
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <fieldset>
+    <legend><i class="fa fa-trophy p_title"></i>重点监测点|<a href="#" style="cursor: pointer"><i class="fa fa-plus-circle"></i>添加关注</a></legend>
+    <div class="layui-field-box">
+      <table class="layui-hide" id="test"></table>
+    </div>
+  </fieldset>
+</div>
+<style>
 
+</style>
+<script>
+  (function () {
+    layui.use('table', function(){
+      var table = layui.table;
+      
+      table.render({
+        elem: '#test'
+        ,url:'/demo/table/user/'
+        ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+        ,cols: [[
+          {field:'id', title: 'ID', sort: true}
+          ,{field:'username', title: '用户名'} //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+          ,{field:'sex', title: '性别', sort: true}
+          ,{field:'city', title: '城市'}
+          ,{field:'sign', title: '签名'}
+          ,{field:'classify', title: '职业', align: 'center'} //单元格内容水平居中
+          ,{field:'experience', title: '积分', sort: true, align: 'right'} //单元格内容水平居中
+          ,{field:'score', title: '评分', sort: true, align: 'right'}
+          ,{field:'wealth', title: '财富', sort: true, align: 'right'}
+        ]]
+      });
     });
-  </script>
-</body>
-
-</html>
+  }())
+</script>

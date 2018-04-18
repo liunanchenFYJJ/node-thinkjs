@@ -1,14 +1,11 @@
-<!-- <link rel="stylesheet" href="/static/ztree/zTreeStyle.css">
-<script src="/static/ztree/jquery-1.4.4.min.js"></script>
-<script src="/static/ztree/jquery.ztree.core.js"></script> -->
 <div id="container" class="layui-row">
     <blockquote class="layui-elem-quote">
         数据视图-实时显示监测点数据
     </blockquote>
     <div class="layui-row">
         <div class="layui-col-md9">
-            <div id="chartMap"></div>
-            <blockquote>数据项列表</blockquote>
+            <div id="chartMap" style="height: 260px; width: 100%"></div>
+            <blockquote class="layui-elem-quote">数据项列表</blockquote>
             <table id="demo" lay-filter="test"></table>
         </div>
         <div class="layui-col-md3">
@@ -30,7 +27,6 @@
 <style>
 
 </style>
-<!-- <script src="../../www/static/ztree/jquery.ztree.core.js"></script>   -->
 <script>
     (function(){
         layui.use(['table'], function(){
@@ -55,8 +51,6 @@
                 ]]
             });
 
-
-        });
             // ztree
             // ztree 写在layui外面，引入jquery文件冲突？
             var setting = {
@@ -97,6 +91,9 @@
                 console.log('adjflajdsfjak')
                 $.fn.zTree.init($("#treeDemo"), setting, zNode);                
             })
+
+        });
+
         
     }())
 </script>

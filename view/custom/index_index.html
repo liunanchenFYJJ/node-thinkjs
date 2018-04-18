@@ -4,12 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>联电能源综合服务平台</title>
+  <title>联电能源|某子站</title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <!-- layui样式 -->
   <link rel="stylesheet" href="/static/layui/css/layui.css">
   <!-- font-awesome样式 -->
   <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.css">
+  <!-- ztree样式 -->
+  <link rel="stylesheet" href="/static/ztree/zTreeStyle.css">  
 </head>
 
 <body class="layui-layout-body">
@@ -26,27 +28,26 @@
 
 
   </div>
+  <!-- 引入jquery -->
+  <script src="/static/ztree/jquery-1.4.4.min.js"></script>
+  <!-- ztree -->
+  <script src="/static/ztree/jquery.ztree.core.js"></script>
   <!-- 百度地图 -->
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iE6Nttmdl4TXocGQHgYh0W44aeERi4Gs"></script> 
-   <!-- layui  -->
-  <script src="/static/layui/layui.js"></script>  
+  <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iE6Nttmdl4TXocGQHgYh0W44aeERi4Gs"></script>  -->
+  <!-- layui  -->
+  <script src="/static/layui/layui.js"></script>
   <!-- vue -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> -->
   <!-- echarts -->
   <script src="/static/js/echarts.js"></script>
   <!-- ejs模板 -->
-  <script src="/static/js/ejs.js"></script>
+  <!-- <script src="/static/js/ejs.js"></script> -->
   <!-- svg -->
+  <script src="/static/svg/svg.js"></script>
+  <script src="/static/svg/svg.panzoom.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.4/svg.js"></script> -->
   <!-- 自定义 -->
-  <script src="/static/js/main.js"></script>    
-  <script>
-    //JavaScript代码区域
-    layui.use('element', function () {
-      var element = layui.element;
-
-    });
-  </script>
+  <script src="/static/js/custom/main.js"></script>
 </body>
 
 </html>
