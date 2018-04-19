@@ -4,7 +4,7 @@
  * session configs
  */
 export default {
-  name: 'thinkjs',
+  name: 'thinkjs_session',
   type: 'file',
   secret: '@YEO^S`)',
   timeout: 24 * 3600,
