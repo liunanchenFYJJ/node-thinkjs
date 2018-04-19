@@ -2,6 +2,7 @@
 
 import Base from './base.js';
 var md5 = require('md5');
+var jwt = require('jsonwebtoken');
 export default class extends Base {
   /**
    * index action
@@ -20,7 +21,7 @@ export default class extends Base {
       let usPassword = new Buffer(md5(self.post('usPassword'))).toString('base64');
       // var b = new Buffer(usPassword);
       // var s = b.toString('base64');
-      console.log(usPassword);      
+      console.log(usPassword);
       let model = await this.model('users');
       return model.where({
           usEmail: usEmail,
@@ -29,6 +30,23 @@ export default class extends Base {
           if (think.isEmpty(data)) {
             return self.error(403, '用户或者密码不正确');
           } else {
+            // 生成token && 解析token
+            const secret = 'aaa';
+            const token = jwt.sign({
+              name: 123
+            }, secret, {
+              expiresIn: 60 //到期时间
+            });
+            console.log(token);
+            jwt.verify(token, secret, function (err, decoded) {
+              if (!err) {
+                console.log(decoded.name);
+              }
+            });
+            var decoded = jwt.decode(token, {complete: true});
+            console.log(decoded.header);
+            console.log(decoded.payload);
+            console.log(decoded.signature);
             return self.session('userInfo', data);
           }
         })
