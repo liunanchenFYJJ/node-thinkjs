@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>login</title>
+  <meta charset="UTF-8">
+  <title>登陆页面</title>
 </head>
+
 <body>
-  <header>
-    <div class="wrap">
-      <h1>A New App Created By ThinkJS</h1>
-    </div>
-  </header>
   <div class="content">
+    <h2>能源管理平台</h2>
     <form action="/login/index/login" method="POST">
-        <label for="name"></label><input type="text" id="username" name="usName" value="admin">
-        <label for="password"></label><input type="password" id="password" name="usPassword">
-        <input type="submit" name="" id="">
+      <label>username:</label>
+      <input type="text" id="username" name="usEmail" value="admin@test.com"><br>
+      <label>password:</label>
+      <input type="password" id="password" name="usPassword" value="123456"><br>
+      <input type="submit" name="" id="">
     </form>
   </div>
+  <!-- <script src="/static/ztree/jquery-1.4.4.min.js"></script> -->
+  <!-- <script src="/static/md5/md5.js"></script> -->
 </body>
+
 </html>

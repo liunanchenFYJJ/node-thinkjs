@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-
+var md5 = require('md5');
 export default class extends Base {
   /**
    * index action
@@ -12,24 +12,18 @@ export default class extends Base {
     return this.display();
   }
 
-  // async loginAction() {
-  //   let model = this.model('users');
-  //   let post = this.post();
-  //   console.log(post);
-  //   let data = await model.where({
-  //     usName: post.usName
-  //   }).find();
-  //   return this.success(data);
-  // }
-
   async loginAction() {
     var self = this;
     if (self.isPost()) {
-      let usName = self.post('usName');
-      let usPassword = self.post('usPassword');
+      let usEmail = self.post('usEmail');
+      // 使用md5+base64对密码进行加密
+      let usPassword = new Buffer(md5(self.post('usPassword'))).toString('base64');
+      // var b = new Buffer(usPassword);
+      // var s = b.toString('base64');
+      console.log(usPassword);      
       let model = await this.model('users');
       return model.where({
-          usName: usName,
+          usEmail: usEmail,
           usPassword: usPassword
         }).find().then(function (data) {
           if (think.isEmpty(data)) {

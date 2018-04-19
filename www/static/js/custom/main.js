@@ -112,7 +112,7 @@
           layer.close(index);
         },
         function () {
-          $.post("/login/logout", {}, function (token) {
+          $.post("/login/index/logout", {}, function (token) {
             console.log(token);
             sessionStorage.setItem("token", {});
             window.location.href = "/";
