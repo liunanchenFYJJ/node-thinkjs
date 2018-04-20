@@ -9,16 +9,16 @@
         <div class="layui-field-box">
           <div class="layui-row"><div id="prj_logo"></div></div>
           <div class="layui-row">
-            <div class="layui-col-md6"><i class="fa fa-industry"></i>站点名称:</div>
-            <div class="layui-col-md6"><i class="fa fa-plug"></i>通信网关:</div>
+            <div class="layui-col-md6"><i class="fa fa-industry"></i>站点名称:{{prjlist.prjName}}</div>
+            <div class="layui-col-md6"><i class="fa fa-plug"></i>通信网关:{{prjlist.prjName}}</div>
           </div>
           <div class="layui-row">
-            <div class="layui-col-md6"><i class="fa fa-calendar-minus-o"></i>运行日期:</div>
-            <div class="layui-col-md6"><i class="fa fa-cubes"></i>监测点数:</div>
+            <div class="layui-col-md6"><i class="fa fa-calendar-minus-o"></i>运行日期:{{prjlist.prjCreateDate | dateFormat}}</div>
+            <div class="layui-col-md6"><i class="fa fa-cubes"></i>监测点数:{{prjlist.prjName}}</div>
           </div>
           <div class="layui-row">
-            <div class="layui-col-md6"><i class="fa fa-paper-plane-o"></i>平台上报:</div>
-            <div class="layui-col-md6"><i class="fa fa-circle run"></i>通信状态:</div>
+            <div class="layui-col-md6"><i class="fa fa-paper-plane-o"></i>平台上报:{{prjlist.prjName}}</div>
+            <div class="layui-col-md6"><i class="fa fa-circle run"></i>通信状态:{{prjlist.prjName}}</div>
           </div>          
         </div>
       </fieldset>
@@ -102,6 +102,28 @@
   (function () {
     layui.use('table', function(){
       var table = layui.table;
+      var data = {prjCode: 'PRJ_ByJ9jKLFb'}//虚拟prjCode
+      // table#1
+      $.post('/custom/station/getproject', data, function(e){
+        if (e.data) {
+          vuedata.prjlist = e.data[0];          
+        }
+      })
+
+      var vuedata = {
+        prjlist: []
+      }
+      var vue = new Vue({
+        el: '#container',
+        data: vuedata,
+        filters: {
+          dateFormat: function(value){
+            if (value) {
+              return value.slice(0, 10);              
+            }
+          }
+        }
+      });
       
       table.render({
         elem: '#test'
@@ -119,6 +141,7 @@
           ,{field:'wealth', title: '财富', sort: true, align: 'right'}
         ]]
       });
+
     });
   }())
 </script>

@@ -12,6 +12,15 @@ export default class extends Base {
         return this.display();
     }
 
+    async getprojectAction() {
+        let model = this.model('projects');
+        let post = this.post();
+        let data = await model.where({
+            prjCode: post.prjCode
+        }).select();
+        return this.success(data);
+    }
+
     dataviewAction() {
         //auto render template file index_index.html
         return this.display();
