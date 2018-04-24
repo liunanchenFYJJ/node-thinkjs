@@ -46,6 +46,38 @@ export default class extends Base {
         return this.display();
     }
 
+    async getviewlistAction() {
+        let model = this.model('uviews');
+        let post = this.post();
+        let data = await model.select();
+        return this.success(data);
+    }
+
+    async viewlistdelAction() {
+        let model = this.model('uviews');
+        let post = this.post();
+        let delId = await model.where({id: post.id}).delete();
+        return this.success(delId);
+    }
+    
+    async viewlistaddorupdateAction() {
+        let model = this.model('uviews');
+        let post = this.post();
+        if (post.id) {
+            let data = await model.where({id: post.id}).update({
+                vName: post.vName,
+                tags: post.tags,
+                notes: post.notes,
+                activity: post.activity,
+                isPublic: post.isPublic,
+            });
+            return this.success(data);
+        } else {
+            let data = await model.add(post);
+            return this.success(data);
+        }
+    }
+
     workplanAction() {
         //auto render template file index_index.html
         return this.display();

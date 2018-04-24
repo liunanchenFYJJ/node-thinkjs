@@ -1,14 +1,150 @@
 <div id="container" class="layui-row">
     <blockquote class="layui-elem-quote">
         自定义视图列表，您可以通过设计界面进行个性化设置
+        <a href="#" @click="add">新增</a>                                
     </blockquote>
-    
+    <transition-group name="fade">
+            <fieldset v-if="show" key="">
+                    <legend>视图信息</legend>
+                    <form class="layui-form" action="#">
+                        <div class="layui-form-item" v-show="false">
+                            <label class="layui-form-label">id</label>
+                            <div class="layui-input-block">
+                            <input type="text" name="id" autocomplete="off" class="layui-input" :value="subviewlist.id">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">视图名称</label>
+                            <div class="layui-input-block">
+                            <input type="text" name="vName" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" :value="subviewlist.vName">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">标签</label>
+                            <div class="layui-input-block">
+                            <input type="text" name="tags" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" :value="subviewlist.tags">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">描述</label>
+                            <div class="layui-input-block">
+                            <input type="text" name="notes" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" :value="subviewlist.notes">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">激活</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="activity" lay-skin="switch" lay-text="ON|OFF" :value="subviewlist.activity">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">共享</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="isPublic" lay-skin="switch" lay-text="ON|OFF" :value="subviewlist.isPublic">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
+    </transition-group>
+
+    <fieldset class="layui-elem-field">
+        <legend>隶属于您的视图</legend>
+        <div class="layui-field-box">
+          <ul>
+              <li v-for="(item, index) in uviewlist">
+                    <div class="layui-col-md4">
+                        <div class="hz_views">
+                            <span>{{item.vName}}</span><br>
+                            <span>{{item.tags}}</span><br>
+                            <span>{{item.notes}}</span><br>
+                            <span>{{item.lastUpdate | dataFormat}}</span>
+                        </div>
+                        <a href="#" @click="edit">编辑</a>
+                        <a href="#">设计</a>
+                        <a href="#">显示</a>
+                        <a href="#" @click="del">删除</a>
+                    </div>
+              </li>
+          </ul>
+        </div>
+      </fieldset>
 </div>
 <style>
-
+.hz_views {
+    background-color: lightgray;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
 <script>
     (function(){
+        layui.use(['form'], function () {
+            var form = layui.form;
+            var vuedata = {
+                uviewlist: [],
+                show: false,
+                subviewlist: {}
+            }
 
+            var app = new Vue({
+                el: '#container',
+                data: vuedata,
+                methods: {
+                    // 找到每个的id?
+                    del: function() {
+                        $.post('/custom/station/viewlistdel', {id: 25}, function () {
+                            
+                        })
+                    },
+                    add: function() {
+                        vuedata.subviewlist = {};                           
+                        vuedata.show = !vuedata.show;
+                    },
+                    edit: function() {
+                        console.log(vuedata.uviewlist[0]);
+                        vuedata.subviewlist = vuedata.uviewlist[0];   
+                        vuedata.show = !vuedata.show;       
+                    }
+                },
+                filters: {
+                    dataFormat: function(time){
+                        if (time) {
+                            return (new Date(time)).toLocaleString();
+                        }
+                    }
+                }
+            });
+
+            getviewlist();            
+
+            function getviewlist() {
+                $.post('/custom/station/getviewlist', {}, function(e){
+                    if (e.data) {
+                        vuedata.uviewlist = e.data;
+                    }
+                });
+            }
+
+            //监听新增提交
+            form.on('submit(formDemo)', function(data){
+                // layer.msg(JSON.stringify(data.field));
+                $.post('/custom/station/viewlistaddorupdate', data.field, function(e) {
+                    console.log(e.data);
+                    getviewlist();
+                    vuedata.show = false;
+                });
+                return false;
+            });
+        });
     }())
 </script>
