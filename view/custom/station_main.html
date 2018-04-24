@@ -27,7 +27,7 @@
       <fieldset>
         <legend>用能分项汇总</legend>
         <div class="layui-field-box">
-
+          <table class="layui-hide" id="test"></table>          
         </div>
       </fieldset>
     </div>
@@ -91,7 +91,7 @@
   <fieldset>
     <legend><i class="fa fa-trophy p_title"></i>重点监测点|<a href="#" style="cursor: pointer"><i class="fa fa-plus-circle"></i>添加关注</a></legend>
     <div class="layui-field-box">
-      <table class="layui-hide" id="test"></table>
+      <table class="layui-hide" id="test1"></table>
     </div>
   </fieldset>
 </div>
@@ -127,11 +127,27 @@
       
       table.render({
         elem: '#test'
+        ,url:'hello.json'
+        ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+        ,cols: [[
+          {field:'id', title: 'ID'},
+          {field:'username', title: '分项'} //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+          ,{field:'sex', title: '本月用能'}
+          ,{field:'city', title: '本年用能'}
+          ,{field:'sign', title: '单位'}
+        ]]
+        ,done: (function(data){
+          console.log(data.list)
+        })
+      });
+
+      table.render({
+        elem: '#test1'
         ,url:''
         ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
         ,cols: [[
-          {field:'id', title: 'ID', sort: true}
-          ,{field:'username', title: '用户名'} //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+          // {field:'id', title: 'ID',}
+          {field:'username', title: '用户名'} //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
           ,{field:'sex', title: '性别', sort: true}
           ,{field:'city', title: '城市'}
           ,{field:'sign', title: '签名'}
@@ -144,4 +160,18 @@
 
     });
   }())
+</script>
+<script>
+  Mock.mock(/\.json/, {
+    'list|1-10': [{
+        'id|+1': 1,
+        'username': '@EMAIL',
+        'sex': '@EMAIL',
+        'city': '@EMAIL',
+        'sign': '@EMAIL',
+    }]
+  })
+  // $.post('hello.json', {}, function(e){
+  //   console.log(JSON.parse(e).list);
+  // });
 </script>
