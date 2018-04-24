@@ -66,8 +66,8 @@
                             <span>{{item.lastUpdate | dataFormat}}</span>
                         </div>
                         <a href="#" @click="edit">编辑</a>
-                        <a href="#">设计</a>
-                        <a href="#">显示</a>
+                        <a href="#" @click="design">设计</a>
+                        <a href="#" @click="display">显示</a>
                         <a href="#" @click="del">删除</a>
                     </div>
               </li>
@@ -102,6 +102,10 @@
                 methods: {
                     // 找到每个的id?
                     del: function() {
+                        layer.open({
+                            title: '提示'
+                            ,content: `<i class="layui-layer-ico layui-layer-ico3"></i>您确定要删除此数据?`
+                        }); 
                         $.post('/custom/station/viewlistdel', {id: 25}, function () {
                             
                         })
@@ -114,6 +118,12 @@
                         console.log(vuedata.uviewlist[0]);
                         vuedata.subviewlist = vuedata.uviewlist[0];   
                         vuedata.show = !vuedata.show;       
+                    },
+                    design: function() {
+                        window.open("https://www.baidu.com", "_blank");  
+                    },
+                    display: function() {
+                        window.open("https://www.baidu.com", "_blank");                          
                     }
                 },
                 filters: {
