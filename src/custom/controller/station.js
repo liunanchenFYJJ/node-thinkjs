@@ -46,6 +46,21 @@ export default class extends Base {
         return this.display();
     }
 
+    async getchannelsAction() {
+        let model = this.model('channels');
+        let post = this.post();
+        console.log(post);
+        let data = await model.where({
+            ptCode: post.ptCode
+        }).select();
+        // return this.success(data);
+        return this.json({
+            code: 0,
+            msg: 'success',
+            data: data
+        })
+    }
+
     async getviewlistAction() {
         let model = this.model('uviews');
         let post = this.post();
@@ -56,15 +71,19 @@ export default class extends Base {
     async viewlistdelAction() {
         let model = this.model('uviews');
         let post = this.post();
-        let delId = await model.where({id: post.id}).delete();
+        let delId = await model.where({
+            id: post.id
+        }).delete();
         return this.success(delId);
     }
-    
+
     async viewlistaddorupdateAction() {
         let model = this.model('uviews');
         let post = this.post();
         if (post.id) {
-            let data = await model.where({id: post.id}).update({
+            let data = await model.where({
+                id: post.id
+            }).update({
                 vName: post.vName,
                 tags: post.tags,
                 notes: post.notes,
@@ -80,6 +99,11 @@ export default class extends Base {
 
     workplanAction() {
         //auto render template file index_index.html
+        return this.display();
+    }
+
+    // 弹出框
+    channelhistoryAction() {
         return this.display();
     }
 }

@@ -1,0 +1,143 @@
+<div id="container" class="layui-row">
+    <blockquote class="layui-elem-quote">
+        / -的历史数据
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>检索条件</legend>
+        <div class="layui-field-box">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开始日期</label>
+                        <div class="layui-input-inline">
+                            <input name="sttime" type="text" class="layui-input" id="test1">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">               
+                    <div class="layui-inline">
+                        <label class="layui-form-label">截止日期</label>
+                        <div class="layui-input-inline">
+                            <input name="edtime" type="text" class="layui-input" id="test2">
+                        </div>
+                    </div>
+                </div> 
+                <div class="layui-form-item">                             
+                    <div class="layui-inline">
+                        <label class="layui-form-label">快速选择</label>
+                        <div class="layui-input-inline">
+                            <select name="time" lay-filter="fastchose">
+                                <option value="0">过去1小时</option>
+                                <option value="1">过去2小时</option>
+                                <option value="2">过去5小时</option>
+                                <option value="3">过去12小时</option>
+                                <option value="4">过去24小时</option>
+                                <option value="5" selected>过去48小时</option>
+                                <option value="6">过去1周</option>
+                                <option value="7">过去1月</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>   
+                <div class="layui-form-item">                               
+                    <div class="layui-inline">
+                        <label class="layui-form-label">时间分组</label>
+                        <div class="layui-input-inline">
+                            <select name="time1" lay-filter="dividetime">
+                                <option value="0">1min</option>
+                                <option value="1" selected>5min</option>
+                                <option value="2">15min</option>
+                                <option value="3">30min</option>
+                                <option value="4">1hour</option>
+                                <option value="5">1day</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> 
+                <div class="layui-form-item">                                               
+                    <div class="layui-inline">
+                        <button class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend>曲线图</legend>
+        <div class="layui-field-box">
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend>数据表格-查询结果： 项</legend>
+        <div class="layui-field-box">
+        </div>
+    </fieldset>
+</div>
+<style>
+
+</style>
+<script src="/static/layui/layui.js"></script>
+<link rel="stylesheet" href="/static/layui/css/layui.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    (function(){
+        layui.use(['laydate', 'form'], function() {
+            var laydate = layui.laydate;
+            var form = layui.form;
+
+            // 利用 vue 绑定数据
+            var vuedata = {
+                nowdate: new Date(),
+                beforedate: '',
+            }
+
+            var vue = new Vue({
+                el: '#container',
+                data: vuedata,
+                methods: {
+
+                }
+            })
+
+              //执行一个laydate实例
+            laydate.render({
+                elem: '#test1' //指定元素
+                ,type: 'datetime'
+                // ,value: new Date()                
+                ,value: vuedata.beforedate
+            });
+            laydate.render({
+                elem: '#test2' //指定元素
+                ,type: 'datetime'
+                // ,value: new Date()
+                ,value: vuedata.nowdate
+            });
+
+            form.on('select(fastchose)', function(data){
+                console.log(data.elem); //得到select原始DOM对象
+                console.log(data.value); //得到被选中的值
+                console.log(data.othis); //得到美化后的DOM对象
+            });
+            form.on('select(dividetime)', function(data){
+                console.log(data.elem); //得到select原始DOM对象
+                console.log(data.value); //得到被选中的值
+                console.log(data.othis); //得到美化后的DOM对象
+            });
+
+            form.on('submit(demo1)', function(data){
+                layer.alert(JSON.stringify(data.field), {
+                    title: '最终的提交信息'
+                });
+                console.log(data.elem); //被执行事件的元素DOM对象，一般为button对象
+                console.log(data.form); //被执行提交的form对象，一般在存在form标签时才会返回
+                console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+
+
+
+        });
+    })()
+</script>

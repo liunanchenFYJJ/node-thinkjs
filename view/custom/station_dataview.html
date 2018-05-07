@@ -7,6 +7,9 @@
             <div id="chartMap" style="height: 260px; width: 100%"></div>
             <blockquote class="layui-elem-quote">数据项列表</blockquote>
             <table id="demo" lay-filter="test"></table>
+            <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-xs" lay-event="detail"><i class="fa fa-line-chart"></i>趋势图</a>
+            </script>
         </div>
         <div class="layui-col-md3">
             <fieldset class="layui-elem-field">
@@ -33,22 +36,47 @@
             var table = layui.table;
             // var $ = layui.$;
               //第一个实例
-            table.render({
-                elem: '#demo'
-                ,height: 315
-                ,url: '/demo/table/user/' //数据接口
-                ,page: true //开启分页
-                ,cols: [[ //表头
-                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'username', title: '用户名', width:80}
-                ,{field: 'sex', title: '性别', width:80, sort: true}
-                ,{field: 'city', title: '城市', width:80} 
-                ,{field: 'sign', title: '签名', width: 177}
-                ,{field: 'experience', title: '积分', width: 80, sort: true}
-                ,{field: 'score', title: '评分', width: 80, sort: true}
-                ,{field: 'classify', title: '职业', width: 80}
-                ,{field: 'wealth', title: '财富', width: 135, sort: true}
-                ]]
+            // table.render({
+            //     elem: '#demo'
+            //     ,height: 940
+            //     ,url: '/custom/station/getchannels' //数据接口
+            //     ,page: true //开启分页
+            //     ,method: 'post'
+            //     ,page: false
+            //     ,cols: [[ //表头
+            //     {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+            //     ,{field: 'chName', title: '变量名称', width:80}
+            //     ,{field: 'chShortName', title: '指标类型', width:80, sort: true}
+            //     ,{field: 'city', title: '采样值', width:80} 
+            //     ,{field: 'sign', title: '采样时间', width: 177}
+            //     ,{field: 'experience', title: '数据质量(Qos)', width: 80, sort: true}
+            //     ,{title: '详细', align:'center', toolbar: '#barDemo'}                
+            //     ]]
+            // });
+
+            //监听工具条
+            table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+                
+                if(layEvent === 'detail'){ //查看
+                    //do somehing
+                    console.log(obj.data);   
+                    layer.open({
+                        type: 2 //此处以iframe举例
+                        ,title: '历史数据'
+                        ,area: ['600px', '500px']
+                        ,shadeClose: true
+                        ,maxmin: true
+                        ,offset: 'auto'
+                        ,content: '/custom/station/channelhistory'
+                        ,btn: ['取消'] //只是为了演示
+                        ,yes: function(index){
+                            layer.close(index);                            
+                        }
+                    });                 
+                }
             });
 
             // ztree
@@ -62,33 +90,103 @@
                     onClick: onClick
                 },
                 view: {
-                    showIcon: showIconForTree
+                    showIcon: false
                 }
             }
             var zNode = [
-                { id:1, pId:0, name:"普通的父节点", t:"我很普通，随便点我吧", open:true},
-                { id:11, pId:1, name:"叶子节点 - 1", t:"我很普通，随便点我吧"},
-                { id:12, pId:1, name:"叶子节点 - 2", t:"我很普通，随便点我吧"},
-                { id:13, pId:1, name:"叶子节点 - 3", t:"我很普通，随便点我吧"},
-                { id:2, pId:0, name:"NB的父节点", t:"点我可以，但是不能点我的子节点，有本事点一个你试试看？", open:true},
-                { id:21, pId:2, name:"叶子节点2 - 1", t:"你哪个单位的？敢随便点我？小心点儿..", click:false},
-                { id:22, pId:2, name:"叶子节点2 - 2", t:"我有老爸罩着呢，点击我的小心点儿..", click:false},
-                { id:23, pId:2, name:"叶子节点2 - 3", t:"好歹我也是个领导，别普通群众就来点击我..", click:false},
-                { id:3, pId:0, name:"郁闷的父节点", t:"别点我，我好害怕...我的子节点随便点吧...", open:true, click:false },
-                { id:31, pId:3, name:"叶子节点3 - 1", t:"唉，随便点我吧"},
-                { id:32, pId:3, name:"叶子节点3 - 2", t:"唉，随便点我吧"},
-                { id:33, pId:3, name:"叶子节点3 - 3", t:"唉，随便点我吧"}
+                { id:'PT_HkTXM_j5Z', pId:0, name:"211进线开关", t:"我很普通，随便点我吧", open:false},
+                { id:11, pId:'PT_HkTXM_j5Z', name:"214主变开关", t:"我很普通，随便点我吧"},
+                { id:111, pId:11, name:"411进线开关"},
+                { id:112, pId:11, name:"412电容补偿柜"},
+                { id:113, pId:11, name:"413馈线柜"},
+                { id:1131, pId:113, name:"413-1备用"},                
+                { id:1132, pId:113, name:"413-2备用"},                
+                { id:1133, pId:113, name:"413-3门卫室B3AP1"},                
+                { id:1134, pId:113, name:"413-4安防电源B3AP-AF(备)"},                
+                { id:1135, pId:113, name:"413-5水泵房生活泵B3AP-SHB"},                
+                { id:1136, pId:113, name:"413-6B2仓库普通负荷B2AP2"},                
+                { id:1137, pId:113, name:"413-7备用"},                
+                { id:114, pId:11, name:"414馈线柜"},
+                { id:1141, pId:114, name:"414-1备用"},                
+                { id:1142, pId:114, name:"414-2备用"},                
+                { id:1143, pId:114, name:"414-3备用"},                
+                { id:1144, pId:114, name:"414-4消防控制室B3APE-XF(常)"},                
+                { id:1145, pId:114, name:"414-5变电所用电B3APE-BDS(备)"},                
+                { id:1146, pId:114, name:"414-6水泵房消防栓泵B3APE-XHS(常)"},                
+                { id:1147, pId:114, name:"414-7备用"},
+                { id:115, pId:11, name:"415馈线柜"},
+                { id:1151, pId:115, name:"415-1备用"},                                
+                { id:1152, pId:115, name:"415-2备用"},                                
+                { id:1153, pId:115, name:"415-3备用"},                                
+                { id:1154, pId:115, name:"415-4物业用房B3AP"},                                
+                { id:1155, pId:115, name:"415-5备用"},                                
+                { id:1156, pId:115, name:"415-6水泵房喷淋泵B3APE-PLB(备)"},                                
+                { id:12, pId:'PT_HkTXM_j5Z', name:"215主变开关", t:"我很普通，随便点我吧"},
+
+                { id:2, pId:0, name:"221进线开关", t:"我很普通，随便点我吧", open:false},
+                { id:21, pId:2, name:"224主变开关", t:"我很普通，随便点我吧"},
+                { id:211, pId:21, name:"421进线开关"},
+                { id:212, pId:21, name:"422电容补偿柜"},
+                { id:213, pId:21, name:"423馈线柜"},
+                { id:2131, pId:213, name:"423-1备用"},                
+                { id:2132, pId:213, name:"423-2备用"},                
+                { id:2133, pId:213, name:"423-3室外配电柜B4AP"},                
+                { id:2134, pId:213, name:"423-4安防电源B3AP-AF(常)"},                
+                { id:2135, pId:213, name:"423-5水泵房生活泵B3AP-SHB(备)"},                
+                { id:2136, pId:213, name:"423-6B2仓库普通负荷B2AP1"},                
+                { id:2137, pId:213, name:"423-7备用"},                
+                { id:2138, pId:213, name:"423-8备用"},                
+                { id:214, pId:21, name:"424馈线柜"},
+                { id:1141, pId:214, name:"424-1备用"},                
+                { id:1142, pId:214, name:"424-2备用"},                
+                { id:1143, pId:214, name:"424-3备用"},                
+                { id:1144, pId:214, name:"424-4消防控制室B3APE-XF(备)"},                
+                { id:1145, pId:214, name:"424-5变电所用电B3APE-BDS(常)"},                
+                { id:1146, pId:214, name:"424-6水泵房消防栓泵B3APE-XHS(备)"},                
+                { id:1147, pId:214, name:"424-7备用"},
+                { id:215, pId:21, name:"425馈线柜"},
+                { id:1151, pId:215, name:"425-1备用"},                                
+                { id:1152, pId:215, name:"425-2备用"},                                
+                { id:1153, pId:215, name:"425-3备用"},                                
+                { id:1154, pId:215, name:"425-4备用"},                                
+                { id:1155, pId:215, name:"425-5备用"},                                
+                { id:1156, pId:215, name:"425-6水泵房喷淋泵B3APE-PLB(常)"}, 
+                { id:216, pId:21, name:"400母联开关"},                                               
+                { id:22, pId:2, name:"225主变开关", t:"我很普通，随便点我吧"}
             ]
             function onClick(event, treeId, treeNode) {
                 console.log(event);
                 console.log(treeId);
                 console.log(treeNode);
+
+                // 根据ptCode查询相应数据项
+                table.render({
+                    elem: '#demo'
+                    ,height: 940
+                    ,url: '/custom/station/getchannels' //数据接口
+                    ,method: 'post'
+                    ,where: {ptCode: treeNode.id}                    
+                    ,page: true //开启分页
+                    ,page: false
+                    ,cols: [[ //表头
+                    // {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                    {type:'checkbox'}
+                    ,{field: 'chName', title: '变量名称'}
+                    ,{field: 'chShortName', title: '指标类型', sort: true}
+                    ,{field: 'city', title: '采样值'} 
+                    ,{field: 'sign', title: '采样时间'}
+                    ,{field: 'experience', title: '数据质量(Qos)', sort: true}
+                    ,{title: '详细', align:'center', toolbar: '#barDemo'}                
+                    ]]
+                });
+
             }
-            function showIconForTree(treeId, treeNode) {
-                return !treeNode.isParent;
-            }
+            // ztree是否显示图标
+            // function showIconForTree(treeId, treeNode) {
+            //     return !treeNode.isParent;
+            // }
             $(function(){
-                console.log('adjflajdsfjak')
+                // console.log('adjflajdsfjak')
                 $.fn.zTree.init($("#treeDemo"), setting, zNode);                
             })
 

@@ -8,7 +8,21 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  indexAction() {
+  async indexAction() {
+
+//     const Influx = require('influx');
+//   let influx = new Influx.InfluxDB({
+//  host: '39.108.76.49',
+//  port:8086,
+//  database: 'hz'
+  
+// })
+
+//    influx.query("select * from power limit 10").then(function(data){
+//      console.log(data);
+//    });
+
+   //console.log(data);
     //auto render template file index_index.html
     return this.display();
   }
@@ -48,6 +62,22 @@ export default class extends Base {
             console.log(decoded.payload);
             console.log(decoded.signature);
             return self.session('userInfo', data);
+
+            const Influx = require('influx');
+            let influx = new Influx.InfluxDB({
+           host: '39.108.76.49',
+           port:8086,
+           database: 'hz'
+            
+          })
+          
+             var data =  influx.query("select * from power limit 10")
+            //    console.log(data);
+            //  });
+          
+             //console.log(data);
+              //auto render template file index_index.html
+
           }
         })
         .then(function () {

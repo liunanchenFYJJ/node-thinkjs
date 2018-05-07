@@ -18,7 +18,7 @@
           </div>
           <div class="layui-row">
             <div class="layui-col-md6"><i class="fa fa-paper-plane-o"></i>平台上报:{{prjlist.prjName}}</div>
-            <div class="layui-col-md6"><i class="fa fa-circle run"></i>通信状态:{{prjlist.prjName}}</div>
+            <div class="layui-col-md6"><i class="fa fa-circle run"></i>通信状态:{{prjlist.isActivity}}</div>
           </div>          
         </div>
       </fieldset>
@@ -35,7 +35,7 @@
       <fieldset>
         <legend>主变用能占比</legend>
         <div class="layui-field-box">
-
+          <div id="main" style="width: 100%;height:100%;"></div>                  
         </div>
       </fieldset>
     </div>
@@ -158,6 +158,57 @@
         ]]
       });
 
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'));
+
+      // 指定图表的配置项和数据
+      var option = {
+          tooltip: {
+              trigger: 'item',
+              formatter: "{a} <br/>{b}: {c} ({d}%)"
+          },
+          legend: {
+              orient: 'vertical',
+              x: 'left',
+              data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+          },
+          series: [
+              {
+                  name:'访问来源',
+                  type:'pie',
+                  radius: ['50%', '70%'],
+                  avoidLabelOverlap: false,
+                  label: {
+                      normal: {
+                          show: false,
+                          position: 'center'
+                      },
+                      emphasis: {
+                          show: true,
+                          textStyle: {
+                              fontSize: '30',
+                              fontWeight: 'bold'
+                          }
+                      }
+                  },
+                  labelLine: {
+                      normal: {
+                          show: false
+                      }
+                  },
+                  data:[
+                      {value:335, name:'直接访问'},
+                      {value:310, name:'邮件营销'},
+                      {value:234, name:'联盟广告'},
+                      {value:135, name:'视频广告'},
+                      {value:1548, name:'搜索引擎'}
+                  ]
+              }
+          ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
     });
   }())
 </script>
