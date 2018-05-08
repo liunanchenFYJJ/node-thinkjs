@@ -15,6 +15,12 @@ export default class extends Base {
     async getprojectlistAction() {
         let model = this.model('projects');
         let data = await model.select();
-        return this.success(data);
+        let count = await model.count();
+        return this.json({
+            data: data,
+            code: 0,
+            msg: 'success',
+            count: count
+        });
     }
 }
