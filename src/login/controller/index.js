@@ -81,7 +81,8 @@ export default class extends Base {
           }
         })
         .then(function () {
-          return self.redirect('/custom/index/index');
+          // return self.redirect('/custom/index/index');
+          return self.redirect('/admin/index/index');
         })
     }
     return self.display();

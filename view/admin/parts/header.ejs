@@ -1,8 +1,8 @@
 <div class="layui-header">
-    <div class="layui-logo">能源综合服务平台</div>
+    <div class="layui-logo">企业用能服务平台</div>
     <div class="fa fa-bars" id="showandhide"></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
-    <ul class="layui-nav layui-layout-right">
+    <ul class="layui-nav layui-layout-right" lay-filter="demo">
         <li class="layui-nav-item">
             <a href="javascript:;"><i class="fa fa fa-bell-o"></i>消息</a>
             <dl class="layui-nav-child">
@@ -13,7 +13,7 @@
         </li>
         <li class="layui-nav-item">
             <a href="javascript:;">
-                <i class="fa fa-user-circle-o"></i>贤心
+                <i class="fa fa-user-circle-o"></i>用户信息
             </a>
             <dl class="layui-nav-child">
                 <dd>
@@ -22,11 +22,12 @@
                 <dd>
                     <a href="">安全设置</a>
                 </dd>
+                <dd>
+                    <a href="#" id="logout">退出系统</a>
+                </dd>
             </dl>
         </li>
-        <li class="layui-nav-item">
-            <a href=""><i class="fa fa-gear"></i>退了</a>
-        </li>
+   
     </ul>
 </div>
 <style>
