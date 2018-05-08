@@ -5,8 +5,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">地图模式</label>
                 <div class="layui-input-inline">
-                    <select name="city">
-                        <option value=""></option>
+                    <select name="city" lay-ignore>
                         <option value="0">自动判断</option>
                         <option value="1">白天模式</option>
                         <option value="2">夜间模式</option>
@@ -17,7 +16,6 @@
                 <label class="layui-form-label">状态过滤</label>
                 <div class="layui-input-inline">
                     <select name="status">
-                        <option value=""></option>
                         <option value="0">全部</option>
                         <option value="1">在线</option>
                         <option value="2">离线</option>
@@ -28,7 +26,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">站点定位</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="" autocomplete="off" class="layui-input">
+                    <input type="text" name="title" required lay-verify="required" placeholder="快速定位" autocomplete="off" class="layui-input">  
                 </div>
             </div>
         <!-- </div> -->
@@ -36,6 +34,7 @@
     <div id="allmap"  class="layui-row"></div>
 </div>
 <style>
+    blockquote.layui-elem-quote {margin: 0}
     #container{
         width: 100%-200px;
         height: 808px;
@@ -108,7 +107,7 @@
                         ,maxmin: true
                         ,offset: 'auto'
                         // ,content: '跳转'
-                        ,content: '/power/index/content.html'
+                        ,content: '/power/index/content'
                         ,btn: ['前往子站', '关闭'] //只是为了演示
                         ,yes: function(){
                             console.log('hello');
@@ -137,5 +136,5 @@
 
 
         });
-    }())
+    })()
 </script>
