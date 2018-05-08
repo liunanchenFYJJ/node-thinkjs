@@ -17,12 +17,12 @@
                         <div class="layui-field-box animation1">
                             <div class="layui-row">
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe62c;</i>
+                                    <i class="layui-icon">&#xe62c;</i>
                                 </div>
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <span>您的站点:</span>
-                                    <span>在线子站:</span>
-                                    <span>离线子站:</span>
+                                    <span>您的站点:</span><br>
+                                    <span>在线子站:</span><br>
+                                    <span>离线子站:</span><br>
                                     <span>检修子站:</span>                                        
                                 </div>
                             </div>
@@ -35,12 +35,12 @@
                         <div class="layui-field-box animation1">
                             <div class="layui-row">
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe628;</i>
+                                    <i class="layui-icon">&#xe628;</i>
                                 </div>
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <span>总指标数:</span>
-                                    <span>设备指标数:</span>
-                                    <span>运行指标:</span>
+                                    <span>总指标数:</span><br>
+                                    <span>设备指标数:</span><br>
+                                    <span>运行指标:</span><br>
                                     <span>异常指标率:</span>                                        
                                 </div>
                             </div>
@@ -53,12 +53,12 @@
                         <div class="layui-field-box animation1">
                             <div class="layui-row">
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe645;</i>
+                                    <i class="layui-icon">&#xe645;</i>
                                 </div>
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <span>今日告警数:</span>
-                                    <span>严重等级:</span>
-                                    <span>普通等级:</span>
+                                    <span>今日告警数:</span><br>
+                                    <span>严重等级:</span><br>
+                                    <span>普通等级:</span><br>
                                     <span>一般等级:</span>                                        
                                 </div>
                             </div>
@@ -71,12 +71,12 @@
                         <div class="layui-field-box animation1">
                             <div class="layui-row">
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe61d;</i>
+                                    <i class="layui-icon">&#xe61d;</i>
                                 </div>
                                 <div class="layui-col-sm6 layui-col-xs12">
-                                    <span>近期待办:</span>
-                                    <span>紧急等级:</span>
-                                    <span>普通等级:</span>
+                                    <span>近期待办:</span><br>
+                                    <span>紧急等级:</span><br>
+                                    <span>普通等级:</span><br>
                                     <span>一般等级:</span>                                        
                                 </div>
                             </div>
@@ -85,19 +85,19 @@
                 </div>
             </div>
             <div class="layui-row">
-                <div class="layui-col-sm6 layui-col-md8">
+                <div class="layui-col-md8">
                     <fieldset class="layui-elem-field">
                         <legend>平台总流量趋势</legend>
                         <div class="layui-field-box">
-                            <div id="total_fuhe_map" style="height: 240px; width: 100%;"></div>
+                            <div id="total_fuhe_map"></div>
                         </div>
                     </fieldset>
                 </div>               
-                <div class="layui-col-sm6 layui-col-md4">
+                <div class="layui-col-md4">
                     <fieldset class="layui-elem-field">
                         <legend>站点负荷区间分布(kw)</legend>
                         <div class="layui-field-box">
-                            <div id="fuhe_map" style="height: 240px; width: 100%;"></div>
+                            <div id="fuhe_map"></div>
                         </div>
                     </fieldset>
                 </div>               
@@ -107,7 +107,7 @@
                     <fieldset class="layui-elem-field">
                         <legend>Top 10 用能站点</legend>
                         <div class="layui-field-box">
-                            <div id="top_fuhe_map" style="height: 240px; width: 100%;"></div>
+                            <div id="top_fuhe_map"></div>
                         </div>
                     </fieldset>
                 </div>               
@@ -115,7 +115,7 @@
                     <fieldset class="layui-elem-field">
                         <legend>平台用能趋势(kwh)</legend>
                         <div class="layui-field-box">
-                            <div id="top_energy_map" style="height: 240px; width: 100%;"></div>
+                            <div id="top_energy_map"></div>
                         </div>
                     </fieldset>
                 </div> 
@@ -177,11 +177,12 @@
 <script>
     (function(){
         // 利用vue进行数据绑定
+        var vuedata = {
+            projectslist: []
+        }
         var app = new Vue({
             el: '#app',
-            data: {
-                msg: 'jj'
-            }
+            data: vuedata
         });
         // echarts图标初始化
         var myChart = echarts.init(document.getElementById('total_fuhe_map'));
@@ -285,5 +286,19 @@
         myChart1.setOption(option1);
         // myChart2.setOption(option2);
         // myChart3.setOption(option3);
-    }())
+
+        $.post('/power/map/getprojectlist', {}, function(e) {
+            console.log(e.data);
+        })
+    })()
 </script>
+<style>
+    i.layui-icon {
+        font-size: 64px;
+        color: rgb(30, 159, 255)
+    }
+    #total_fuhe_map, #fuhe_map, #top_fuhe_map, #top_energy_map {
+        height: 240px;
+        width: 100%
+    }
+</style>

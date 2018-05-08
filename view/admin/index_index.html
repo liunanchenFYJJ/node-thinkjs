@@ -13,23 +13,49 @@
 </head>
 
 <body class="layui-layout-body">
-  <div class="layui-layout layui-layout-admin">
-
-
-    <%include parts/header%>
-      <%include parts/left-nav%>
-
-        <div id="wrapp" class="layui-body bevel tlbr" style="width: auto; margin-left: 0px;">
-          <!-- 内容主体区域 -->
-
-        </div>
-
-
+  <div class="layui-layout layui-layout-admin" id="outer">
+    <!-- header -->
+    <div class="layui-header">
+      <div class="layui-logo">企业用能服务平台</div>
+      <div class="fa fa-bars" id="showandhide"></div>
+      <!-- 头部区域（可配合layui已有的水平导航） -->
+      <ul class="layui-nav layui-layout-right" lay-filter="demo">
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <i class="fa fa fa-bell-o"></i>消息</a>
+          <dl class="layui-nav-child">
+            <dd>
+              <a href="">语音播报</a>
+            </dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+            <i class="fa fa-user-circle-o"></i>&nbsp;欢迎您, {{userinfo.usName}}</a>
+          <dl class="layui-nav-child">
+            <dd>
+              <a href="">基本资料</a>
+            </dd>
+            <dd>
+              <a href="">安全设置</a>
+            </dd>
+            <dd>
+              <a href="#" id="logout">退出系统</a>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    <%include parts/left-nav%>
+    <!-- 内容主体区域 -->
+    <div id="wrapp" class="layui-body bevel tlbr"></div>
   </div>
+  <!-- 引入jquery -->
+  <script src="/static/ztree/jquery-1.4.4.min.js"></script>
   <!-- 百度地图 -->
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iE6Nttmdl4TXocGQHgYh0W44aeERi4Gs"></script> 
-   <!-- layui  -->
-  <script src="/static/layui/layui.js"></script>  
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=iE6Nttmdl4TXocGQHgYh0W44aeERi4Gs"></script>
+  <!-- layui  -->
+  <script src="/static/layui/layui.js"></script>
   <!-- vue -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <!-- echarts -->
@@ -37,14 +63,21 @@
   <!-- ejs模板 -->
   <script src="/static/js/ejs.js"></script>
   <!-- 自定义 -->
-  <script src="/static/js/main.js"></script>    
-  <script>
-    //JavaScript代码区域
-    layui.use('element', function () {
-      var element = layui.element;
-
-    });
-  </script>
+  <script src="/static/js/main.js"></script>
 </body>
-
+<style>
+  #wrap {
+    width: auto;
+    margin-left: 0
+  }
+  #showandhide {
+    font-size: 24px;
+    color: #fff;
+    padding-left: 15px;
+    position: absolute;
+    left: 180px;
+    top: 15px;
+    cursor: pointer;
+  }
+</style>
 </html>

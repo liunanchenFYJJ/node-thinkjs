@@ -10,19 +10,19 @@ export default class extends Base {
    */
   async indexAction() {
 
-//     const Influx = require('influx');
-//   let influx = new Influx.InfluxDB({
-//  host: '39.108.76.49',
-//  port:8086,
-//  database: 'hz'
-  
-// })
+    //     const Influx = require('influx');
+    //   let influx = new Influx.InfluxDB({
+    //  host: '39.108.76.49',
+    //  port:8086,
+    //  database: 'hz'
 
-//    influx.query("select * from power limit 10").then(function(data){
-//      console.log(data);
-//    });
+    // })
 
-   //console.log(data);
+    //    influx.query("select * from power limit 10").then(function(data){
+    //      console.log(data);
+    //    });
+
+    //console.log(data);
     //auto render template file index_index.html
     return this.display();
   }
@@ -57,7 +57,9 @@ export default class extends Base {
                 console.log(decoded.name);
               }
             });
-            var decoded = jwt.decode(token, {complete: true});
+            var decoded = jwt.decode(token, {
+              complete: true
+            });
             console.log(decoded.header);
             console.log(decoded.payload);
             console.log(decoded.signature);
@@ -65,23 +67,24 @@ export default class extends Base {
 
             const Influx = require('influx');
             let influx = new Influx.InfluxDB({
-           host: '39.108.76.49',
-           port:8086,
-           database: 'hz'
-            
-          })
-          
-             var data =  influx.query("select * from power limit 10")
+              host: '39.108.76.49',
+              port: 8086,
+              database: 'hz'
+
+            })
+
+            var data = influx.query("select * from power limit 10")
             //    console.log(data);
             //  });
-          
-             //console.log(data);
-              //auto render template file index_index.html
+
+            //console.log(data);
+            //auto render template file index_index.html
 
           }
         })
         .then(function () {
           // return self.redirect('/custom/index/index');
+          // 这里还要判断根据 登陆用户的权限 分为 admin 还是 custom
           return self.redirect('/admin/index/index');
         })
     }
