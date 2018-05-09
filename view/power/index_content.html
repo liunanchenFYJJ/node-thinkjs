@@ -5,13 +5,13 @@
             <div class="layui-field-box animation1">
                 <div class="layui-row">
                     <div class="layui-col-sm6 layui-col-xs12">
-                        <i class="layui-icon" style="font-size: 64px; color: rgb(30, 159, 255);">&#xe62c;</i>
+                        <i class="layui-icon">&#xe62c;</i>
                     </div>
                     <div class="layui-col-sm6 layui-col-xs12">
-                        <span>子站名称:</span>
-                        <span>地址:</span>
-                        <span>电价种类:</span>
-                        <span>设计容量:</span>                                        
+                        <span>子站名称:</span><br>
+                        <span>地址:</span><br>
+                        <span>电价种类:</span><br>
+                        <span>设计容量:</span><br>                                    
                         <span>紧急联系:</span>                                        
                     </div>
                 </div>
@@ -22,7 +22,43 @@
         <fieldset class="layui-elem-field">
             <legend>用能及趋势</legend>
             <div class="layui-field-box">
-                <div id="total_energy_map" style="height: 240px; width: 100%"></div>
+                <div id="total_energy_map"></div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="layui-row">
+    <div class="layui-col-sm4">
+        <fieldset class="layui-elem-field">
+            <legend>用电量</legend>
+            <div class="layui-field-box animation1">
+
+            </div>
+        </fieldset>
+    </div>
+    <div class="layui-col-sm4">
+            <fieldset class="layui-elem-field">
+                <legend>站点负荷</legend>
+                <div class="layui-field-box animation1">
+                    <div class="layui-row">
+                        <div class="layui-col-sm6 layui-col-xs12">
+                            <i class="layui-icon">&#xe62c;</i>
+                        </div>
+                        <div class="layui-col-sm6 layui-col-xs12">
+                            <span>今日最高负荷:</span><br>
+                            <span>本月最高负荷:</span><br>
+                            <span>今日最低负荷:</span><br>
+                            <span>变更缴费模式:</span>                                 
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+    </div>
+    <div class="layui-col-sm4">
+        <fieldset class="layui-elem-field">
+            <legend>电力品质</legend>
+            <div class="layui-field-box">
+
             </div>
         </fieldset>
     </div>
@@ -43,3 +79,14 @@
         });
     })()
 </script>
+<style>
+    div.layui-row { height: 220px; }
+    #total_energy_map {
+        height: 100%;
+        width: 100%
+    }
+    i.layui-icon {
+        font-size: 64px;
+        color: rgb(30, 159, 255)
+    }
+</style>

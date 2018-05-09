@@ -14,10 +14,16 @@ export default class extends Base {
 
     async getprojectlistAction() {
         let model = this.model('projects');
+        let page = this.post('page');
+        let limit1 = this.post('limit');
         let post = this.post();
-        console.log(post);
-        let data = await model.where(post).select();
-        let count = await model.where(post).count();
+        if (page) {
+            var data = await model.where('1=1').select();
+            var count = await model.where('1=1').count();
+        } else {
+            var data = await model.where(post).select();
+            var count = await model.where(post).count();
+        }
         return this.json({
             data: data,
             code: 0,
@@ -29,7 +35,9 @@ export default class extends Base {
     async searchprjAction() {
         let model = this.model('projects');
         let post = this.post();
-        let data = await model.where({prjShortName: post.prjName}).select();
+        let data = await model.where({
+            prjShortName: post.prjName
+        }).select();
         return this.success(data);
     }
 }

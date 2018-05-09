@@ -57,7 +57,8 @@
             var form = layui.form;
             var $ = layui.$;
             var vueMode = {
-                projectslist: []
+                projectslist: [],
+                // selectedStation: {}     //选中的站点信息
             }
             var app = new Vue({
                 el: '#container',
@@ -110,7 +111,8 @@
                 marker2.addEventListener("click",attribute);
                 function attribute(){
                     //多窗口模式，层叠置顶 
-                    // console.log(data);              
+                    // console.log(data); 
+                    // vueMode.selectedStation = data             
                     var that = this;
                     layer.open({
                         type: 2 //此处以iframe举例
@@ -119,12 +121,13 @@
                         ,shadeClose: true
                         ,maxmin: true
                         ,offset: 'auto'
-                        // ,content: '跳转'
                         ,content: '/power/index/content'
                         ,btn: ['前往子站', '关闭'] //只是为了演示
                         ,yes: function(){
                             // console.log('hello');
-                            window.location.href='/custom/station/main';
+                            sessionStorage.setItem('prjName', data.prjName);
+                            sessionStorage.setItem('prjCode', data.prjCode);
+                            window.location.href='/custom/index/index';
                             // var data = {prjCode: , token: }
                             // $.post('/custom/index/index', {}, function(e){
                             //     console.log(e);
@@ -149,7 +152,7 @@
                     var data = '1=1';
                 }
                 $.post('/power/map/getprojectlist', data, function(e){
-                    if (e.data) {
+                    if (e.data.length > 0) {
                         vueMode.projectslist = e.data;
                         for (var i = 0; i < vueMode.projectslist.length; i ++) {
                             var point = new BMap.Point(vueMode.projectslist[i].prjLon, vueMode.projectslist[i].prjLat);

@@ -186,7 +186,9 @@
                 ,done: function(res, curr, count){
                     //如果是异步请求数据方式，res即为你接口返回的信息。
                     // console.log(res);
-                    vuedata.prjlist = res.data;
+                    if (res.data.data) {
+                        vuedata.prjlist = res.data;                        
+                    }
                     //得到当前页码
                     // console.log(curr); 
                     
