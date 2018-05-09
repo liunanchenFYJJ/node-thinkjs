@@ -31,7 +31,7 @@
                     <input type="text" name="prjName" placeholder="快速定位" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item" v-show="false">
                 <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -61,7 +61,10 @@
             }
             var app = new Vue({
                 el: '#container',
-                data: vueMode
+                data: vueMode,
+                methods: {
+
+                }
             });
 
             // 使用地图
@@ -103,6 +106,7 @@
                     fontFamily:"微软雅黑"
                 });
                 marker2.setLabel(label);
+                // marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画                                         
                 marker2.addEventListener("click",attribute);
                 function attribute(){
                     //多窗口模式，层叠置顶 
@@ -132,8 +136,13 @@
                     });
                 }
             }
+            // 刪除
+            function remove() {
+                map.clearOverlays();    
+            }
             // 获取工程列表
             function getprojectlist(status) {
+                remove();
                 if (status) {
                     var data = {prjStatus: status};
                 } else {
@@ -145,6 +154,7 @@
                         for (var i = 0; i < vueMode.projectslist.length; i ++) {
                             var point = new BMap.Point(vueMode.projectslist[i].prjLon, vueMode.projectslist[i].prjLat);
                             addMarker(point, vueMode.projectslist[i]);
+                            map.centerAndZoom(point, 11);        //移动地图中心点                      
                         } 
                     }
                 });
@@ -175,9 +185,20 @@
             form.render();
 
             form.on('submit(*)', function(data){
-                console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+                $.post('/power/map/searchprj', data.field, function(e) {
+                    // console.log(e.data);
+                    if (e.data.length > 0) {
+                        remove();     
+                        let searchlist = e.data;
+                        var point = new BMap.Point(searchlist[0].prjLon, searchlist[0].prjLat);
+                        map.centerAndZoom(point, 11);    //移动地图中心点                          
+                        addMarker(point, searchlist[0]);    // 
+                        var marker = new BMap.Marker(point);  // 创建标注
+                    }
+                });
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
+
         });
     })()
 </script>

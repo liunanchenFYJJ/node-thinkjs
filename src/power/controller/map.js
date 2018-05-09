@@ -25,4 +25,11 @@ export default class extends Base {
             count: count
         });
     }
+
+    async searchprjAction() {
+        let model = this.model('projects');
+        let post = this.post();
+        let data = await model.where({prjShortName: post.prjName}).select();
+        return this.success(data);
+    }
 }
