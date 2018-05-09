@@ -14,8 +14,10 @@ export default class extends Base {
 
     async getprojectlistAction() {
         let model = this.model('projects');
-        let data = await model.select();
-        let count = await model.count();
+        let post = this.post();
+        console.log(post);
+        let data = await model.where(post).select();
+        let count = await model.where(post).count();
         return this.json({
             data: data,
             code: 0,

@@ -1,21 +1,23 @@
 <div id="container" class="layui-row">
     <blockquote class="layui-elem-quote">
         站点分布,以地图方式显示站点运行信息
-        <!-- <div class="layui-form-item"> -->
-            <div class="layui-inline">
+        <form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+            <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">地图模式</label>
                 <div class="layui-input-inline">
-                    <select name="city" lay-ignore>
+                    <select name="city" lay-filter="city">
+                        <option value="">请选择</option>                        
                         <option value="0">自动判断</option>
                         <option value="1">白天模式</option>
                         <option value="2">夜间模式</option>
                     </select>
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">状态过滤</label>
                 <div class="layui-input-inline">
-                    <select name="status">
+                    <select name="status" lay-filter="status">
+                        <option value="">请选择</option>                        
                         <option value="0">全部</option>
                         <option value="1">在线</option>
                         <option value="2">离线</option>
@@ -23,13 +25,19 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">站点定位</label>
-                <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="title" required lay-verify="required" placeholder="快速定位" autocomplete="off" class="layui-input">  
+                <div class="layui-input-block">
+                    <input type="text" name="prjName" placeholder="快速定位" autocomplete="off" class="layui-input">
                 </div>
             </div>
-        <!-- </div> -->
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
     </blockquote>
     <div id="allmap"  class="layui-row"></div>
 </div>
@@ -46,6 +54,7 @@
 <script>
     (function(){
         layui.use('form', function(){
+            var form = layui.form;
             var $ = layui.$;
             var vueMode = {
                 projectslist: []
@@ -54,7 +63,6 @@
                 el: '#container',
                 data: vueMode
             });
-            // 监听条件搜索
 
             // 使用地图
             var map = new BMap.Map("allmap");    
@@ -77,6 +85,7 @@
                 //   alert('after');
                 // }
             }));
+   
             // 添加点
             function addMarker(point, data){
                 //创建自定义图标
@@ -97,7 +106,7 @@
                 marker2.addEventListener("click",attribute);
                 function attribute(){
                     //多窗口模式，层叠置顶 
-                    console.log(data);              
+                    // console.log(data);              
                     var that = this;
                     layer.open({
                         type: 2 //此处以iframe举例
@@ -110,7 +119,7 @@
                         ,content: '/power/index/content'
                         ,btn: ['前往子站', '关闭'] //只是为了演示
                         ,yes: function(){
-                            console.log('hello');
+                            // console.log('hello');
                             window.location.href='/custom/station/main';
                             // var data = {prjCode: , token: }
                             // $.post('/custom/index/index', {}, function(e){
@@ -124,17 +133,51 @@
                 }
             }
             // 获取工程列表
-            $.post('/power/map/getprojectlist', {}, function(e){
-                if (e.data) {
-                    vueMode.projectslist = e.data;
-                    for (var i = 0; i < vueMode.projectslist.length; i ++) {
-                        var point = new BMap.Point(vueMode.projectslist[i].prjLon, vueMode.projectslist[i].prjLat);
-                        addMarker(point, vueMode.projectslist[i]);
-                    } 
+            function getprojectlist(status) {
+                if (status) {
+                    var data = {prjStatus: status};
+                } else {
+                    var data = '1=1';
+                }
+                $.post('/power/map/getprojectlist', data, function(e){
+                    if (e.data) {
+                        vueMode.projectslist = e.data;
+                        for (var i = 0; i < vueMode.projectslist.length; i ++) {
+                            var point = new BMap.Point(vueMode.projectslist[i].prjLon, vueMode.projectslist[i].prjLat);
+                            addMarker(point, vueMode.projectslist[i]);
+                        } 
+                    }
+                });
+            }
+            
+            getprojectlist();
+
+            // 根据时间改变地图样式
+            form.on('select(city)', function(data) {
+                if (data.value == 1) {
+                    map.setMapStyle({style:'normal'});                    
+                } else if (data.value == 2) {
+                    map.setMapStyle({style:'midnight'});
+                } else {
+                    let time = new Date().getHours();
+                    if (time >= 7 && time <= 17) {
+                        map.setMapStyle({style:'normal'});                                            
+                    } else {
+                        map.setMapStyle({style:'midnight'});                        
+                    }
                 }
             });
+            // 根据状态选择站点
+            // 状态过滤 与 数据库里面的状态是否一致？
+            form.on('select(status)', function(data) {
+                getprojectlist(Number(data.value));                    
+            });
+            form.render();
 
-
+            form.on('submit(*)', function(data){
+                console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
         });
     })()
 </script>
