@@ -15,13 +15,13 @@
                     <div class="layui-field-box">
                         <div class="layui-row">
                             <div class="layui-col-sm4">
-                                <div id="map" style="height: 200px; width: 100%;"></div>                                
+                                <div id="map"></div>                                
                             </div>
                             <div class="layui-col-sm4">
-                                <div id="map2" style="height: 200px; width: 100%;"></div>                                
+                                <div id="map2"></div>                                
                             </div>
                             <div class="layui-col-sm4">
-                                <div id="map3" style="height: 200px; width: 100%;"></div>                                
+                                <div id="map3"></div>                                
                             </div>
                         </div>
                     </div>
@@ -29,62 +29,29 @@
                 <fieldset class="layui-elem-field">
                     <legend>站点详细情况(点击上图分类进行查询)</legend>
                     <div class="layui-field-box">
-                        <table class="layui-table">
-                            <colgroup>
-                                <col width="150">
-                                <col width="200">
-                                <col>
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                <th>站点名称</th>
-                                <th>隶属企业</th>
-                                <th>状态</th>
-                                <th>当前负荷(kW)</th>
-                                <th>电量增速(kwh/时)</th>
-                                <th>环境参数()</th>
-                                <th>运行评价(%)</th>
-                                <th>操作</th>
-                                </tr> 
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td>中国电信</td>
-                                <td>中国电信(苏州)分公司</td>
-                                <td><i class="fa fa-dot-circle-o run">在线</i></td>
-                                <td>1315</td>
-                                <td>243</td>
-                                <td>47</td>
-                                <td>89%</td>
-                                <td>
-                                    <div class="layui-btn-group">
-                                        <button class="layui-btn layui-btn-sm">
-                                            <i class="fa fa-line-chart"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <table id="demo" lay-filter="test"></table>
+                        <script type="text/html" id="barDemo">
+                        <div class="layui-btn layui-btn-xs" lay-event="stationdetail"><i class="layui-icon">&#xe609;</i></div>                        
+                    </script>
                     </div>
                 </fieldset>
                 <fieldset class="layui-elem-field">
                     <legend>今日需重点关注(AI只能推荐)</legend>
                     <div class="layui-field-box">
                         <div class="layui-row">
-                            <div class="layui-col-sm4">
+                            <div class="layui-col-md4">
                                 <fieldset class="layui-elem-field">
                                     <legend>负荷率最高</legend>
                                     <div class="layui-field-box"></div>
                                 </fieldset>                               
                             </div>
-                            <div class="layui-col-sm4">
+                            <div class="layui-col-md4">
                                 <fieldset class="layui-elem-field">
                                     <legend>运维风险综合指标</legend>
                                     <div class="layui-field-box"></div>
                                 </fieldset>                           
                             </div>
-                            <div class="layui-col-sm4">
+                            <div class="layui-col-md4">
                                 <fieldset class="layui-elem-field">
                                     <legend>温度指标</legend>
                                     <div class="layui-field-box"></div>
@@ -100,11 +67,11 @@
                     <legend>网关状态统计</legend>
                     <div class="layui-field-box">
                         <div class="layui-row">
-                            <div class="layui-col-sm4">
-                                <div id="gw_status" style="height: 200px; width: 100%;"></div>                                
+                            <div class="layui-col-md4">
+                                <div id="gw_status"></div>                                
                             </div>
-                            <div class="layui-col-sm4">
-                                <div id="gw_top_10" style="height: 200px; width: 100%;"></div>                                
+                            <div class="layui-col-md8">
+                                <div id="gw_top_10"></div>                                
                             </div>
                         </div>
                     </div>
@@ -112,45 +79,7 @@
                 <fieldset class="layui-elem-field">
                     <legend>网关详细情况(点击上图分类进行查询)</legend>
                     <div class="layui-field-box">
-                        <table class="layui-table">
-                            <colgroup>
-                                <col width="150">
-                                <col width="200">
-                                <col>
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                <th>ID</th>
-                                <th>网关名称</th>
-                                <th>所属工程</th>
-                                <th>通信状态</th>
-                                <th>CPU负荷(%)</th>
-                                <th>剩余内存(MB)</th>
-                                <th>发送报文(Kbs)</th>
-                                <th>接收报文(Kbs)</th>                                
-                                <th>操作</th>
-                                </tr> 
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td>1</td>                                    
-                                <td>gw01(192.168.0.100)</td>
-                                <td>中国电信</td>
-                                <td><i class="fa fa-dot-circle-o run">在线</i></td>
-                                <td>1315</td>
-                                <td>243</td>
-                                <td>47</td>
-                                <td>89%</td>
-                                <td>
-                                    <div class="layui-btn-group">
-                                        <button class="layui-btn layui-btn-sm">
-                                            <i class="fa fa-line-chart"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <table id="demo2" lay-filter="test2"></table>
                     </div>
                 </fieldset>
             </div>
@@ -160,11 +89,11 @@
                     <legend>消息推送情况</legend>
                     <div class="layui-field-box">
                         <div class="layui-row">
-                            <div class="layui-col-sm4">
-                                <div id="pushmsg_status" style="height: 200px; width: 100%;"></div>                                
+                            <div class="layui-col-md4">
+                                <div id="pushmsg_status"></div>                                
                             </div>
-                            <div class="layui-col-sm4">
-                                <div id="pushmsg_curive" style="height: 200px; width: 100%;"></div>                                
+                            <div class="layui-col-md8">
+                                <div id="pushmsg_curive"></div>                                
                             </div>
                         </div>
                     </div>
@@ -172,45 +101,7 @@
                 <fieldset class="layui-elem-field">
                     <legend>消息推送详细情况(点击上图分类进行查询)</legend>
                     <div class="layui-field-box">
-                        <table class="layui-table">
-                            <colgroup>
-                                <col width="150">
-                                <col width="200">
-                                <col>
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                <th>ID</th>
-                                <th>消息名称</th>
-                                <th>消息类型</th>
-                                <th>推送内容</th>
-                                <th>推送方式</th>
-                                <th>接受者</th>
-                                <th>推送时间</th>
-                                <th>推送状态</th>                                
-                                <th>操作</th>
-                                </tr> 
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <td>1</td>                                    
-                                <td>温度超温</td>
-                                <td>越限类型</td>
-                                <td>***</td>
-                                <td>邮件|SMS</td>
-                                <td>cube3power@163.com</td>
-                                <td>2018/04/06 11:54</td>
-                                <td><i class="fa fa-dot-circle-o run">在线</i></td>
-                                <td>
-                                    <div class="layui-btn-group">
-                                        <button class="layui-btn layui-btn-sm">
-                                            <i class="fa fa-send-o"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                </tr>
-                            </tbody>
-                        </table>
+
                     </div>
                 </fieldset>
             </div>
@@ -219,33 +110,124 @@
 </div>
 <script>
     (function(){
-        var myChart = echarts.init(document.getElementById('map'));
-        option = {
-            tooltip : {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            calculable : true,
-            series : [
-                {
-                    name:'负荷',
-                    type:'pie',
-                    radius : [30, 110],
-                    center : ['50%', '50%'],
-                    roseType : 'area',
-                    data:[
-                        {value:10, name:'rose1'},
-                        {value:5, name:'rose2'},
-                        {value:15, name:'rose3'},
-                        {value:25, name:'rose4'},
-                        {value:25, name:'rose5'},
-                    ]
+        layui.use('table', function() {
+            var table = layui.table;
+            //table实例
+            table.render({
+                elem: '#demo'
+                ,url: '/power/map/getprojectlist' //数据接口
+                ,method: 'post'
+                ,cols: [[ //表头
+                {field: 'prjShortName', title: '站点名称'}                
+                ,{field: 'prjName', title: '隶属企业'}
+                ,{field: 'prjType', title: '状态', templet: function(d) {
+                    if(d.prjType == 1){
+                        return '<i class="fa fa-dot-circle-o run" style="color: green">在线</i>'
+                    } else {
+                        return '<i class="fa fa-dot-circle-o run" style="color: red">离线</i>'                        
+                    }
+                }}
+                ,{field: 'prjDesignedKva', title: '当前负荷(kW)'}                
+                ,{field: '', title: '电量增速(kwh/时)'}                
+                ,{field: '', title: '环境参数(℃)'}                
+                ,{field: '', title: '运行评价(%)'}                
+                ,{title: '操作', align:'center', toolbar: '#barDemo'}
+                ]]
+                ,done: function(res, curr, count){
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    // console.log(res);
+                    if (res.data.data) {
+                        vuedata.prjlist = res.data;                        
+                    }
+                    //得到当前页码
+                    // console.log(curr); 
+                    
+                    //得到数据总量
+                    // console.log(count);
                 }
-            ]
-        };
-        myChart.setOption(option);
+            });
+
+            //监听工具条
+            table.on('tool(test)', function(obj){
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+                
+                if(layEvent === 'stationdetail'){ //查看
+                    console.log('TODO...');
+                    // TODO...
+                }
+            });
+
+            // 2
+            table.render({
+                elem: '#demo2'
+                ,url: '/power/map/getprojectlist' //数据接口
+                ,method: 'post'
+                ,cols: [[ //表头
+                {field: 'prjShortName', title: '站点名称'}                
+                ,{field: 'prjName', title: '隶属企业'}
+                ,{field: 'prjType', title: '状态', templet: function(d) {
+                    if(d.prjType == 1){
+                        return '<i class="fa fa-dot-circle-o run" style="color: green">在线</i>'
+                    } else {
+                        return '<i class="fa fa-dot-circle-o run" style="color: red">离线</i>'                        
+                    }
+                }}
+                ,{field: 'prjDesignedKva', title: '当前负荷(kW)'}                
+                ,{field: '', title: '电量增速(kwh/时)'}                
+                ,{field: '', title: '环境参数(℃)'}                
+                ,{field: '', title: '运行评价(%)'}                
+                ,{title: '操作', align:'center', toolbar: '#barDemo'}
+                ]]
+                ,done: function(res, curr, count){
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    // console.log(res);
+                    if (res.data.data) {
+                        vuedata.prjlist = res.data;                        
+                    }
+                    //得到当前页码
+                    // console.log(curr); 
+                    
+                    //得到数据总量
+                    // console.log(count);
+                }
+            });
+
+            var myChart = echarts.init(document.getElementById('map'));
+            option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'负荷',
+                        type:'pie',
+                        radius : [30, 110],
+                        center : ['50%', '50%'],
+                        roseType : 'area',
+                        data:[
+                            {value:10, name:'rose1'},
+                            {value:5, name:'rose2'},
+                            {value:15, name:'rose3'},
+                            {value:25, name:'rose4'},
+                            {value:25, name:'rose5'},
+                        ]
+                    }
+                ]
+            };
+            myChart.setOption(option);
+
+        });
+
+
     })()
 </script>
 <style>
-
+    #map, #map2, #map3, #gw_status, #gw_top_10, #pushmsg_status, #pushmsg_curive {
+        height: 200px;
+        width: 100%
+    }
 </style>
