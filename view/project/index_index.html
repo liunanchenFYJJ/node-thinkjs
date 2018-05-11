@@ -3,29 +3,46 @@
   工程管理
 </blockquote>
 <!-- 利用 vue 实例进行数据绑定 -->
-<div class="layui-tab" id="app" lay-filter="demo" lay-allowclose="true">
+<div class="layui-tab" id="app" lay-filter="demo"  lay-allowClose="true">
   <ul class="layui-tab-title">
-      <li class="layui-this">工程列表</li>
+    <li class="layui-this">工程列表</li>
+    <li>工程列表1</li>
   </ul>
   <div class="layui-tab-content">
-      <div class="layui-tab-item layui-show">
-          <div class="layui-row">
-            <table id="demo" lay-filter="test"></table>
-            <script type="text/html" id="barDemo">
-              <div class="layui-btn layui-btn-xs" lay-event="detail"><i class="layui-icon">&#xe609;</i></div>
-              <div class="layui-btn layui-btn-xs" lay-event="update"><i class="layui-icon">&#xe716;</i></div>
-              <div class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i></div>
-              <div class="layui-btn layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></div>
-            </script>
-          </div>               
+    <div class="layui-tab-item layui-show">
+      <div class="layui-row">
+            <div class="layui-inline">
+              <div class="layui-input-block">
+                <input type="text" name="" placeholder="模糊检索条件" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="submit"><i class="fa fa-search"></i>立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="addprj"><i class="fa fa-plus-square-o"></i>创建工程</button>
+              </div>
+            </div>
+          </form>
       </div>
+      <div class="layui-row">
+        <table id="demo" lay-filter="test"></table>
+        <script type="text/html" id="barDemo">
+          <div class="layui-btn layui-btn-xs" lay-event="detail"><i class="layui-icon">&#xe609;</i></div>
+          <div class="layui-btn layui-btn-xs" lay-event="update"><i class="layui-icon">&#xe716;</i></div>
+          <div class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i></div>
+          <div class="layui-btn layui-btn-xs" lay-event="delete"><i class="layui-icon">&#xe640;</i></div>
+        </script>
+      </div>               
+    </div>
+    <div class="layui-tab-item">2</div>
   </div>
 </div>
 <script>
   (function(){
-    layui.use('table', function(){
+    layui.use(['table', 'element', 'form'], function(){
+      var form = layui.form;
       var table = layui.table;
-
+      var element = layui.element;
 
       // 利用vue进行数据绑定
       var app = new Vue({
@@ -96,6 +113,21 @@
           default:
             break;
         }
+      });
+
+      form.on('submit(submit)', function(){
+        console.log('submit');
+        return false;
+      });
+
+      form.on('submit(addprj)', function(){
+        console.log('addprj');
+        element.tabAdd('demo', {
+          title: '新建工程'
+          ,content: '/project/index/content'
+          ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+        })
+        return false;
       });
 
     });
