@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图形设计器</title>
+    <script type="text/javascript" src="/static/layui2.2.6/layui.js"></script>
+    <link rel="stylesheet" href="/static/leaflet/leaflet.css">
+    <link href="/static/ztree/css/zTreeStyle.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="/static/layui2.2.6/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/static/css/global.css" type="text/css" />
+    <link rel="stylesheet" href="/static/css/app.css" type="text/css" />
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/leaflet/leaflet-src.js"></script>
+    <script src="/static/ztree/js/jquery.ztree.all.min.js"></script>
+
+
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            background: #f2f2f2;
+        }
+
+        #map {
+            height: 640px;
+        }
+
+        .hz_header {
+            background-color: black;
+        }
+
+        .layui-form-label {
+            float: left;
+            display: block;
+            padding: 5px 15px;
+            max-width: 60px;
+            font-weight: 400;
+            text-align: right;
+        }
+
+        .leaflet-div-icon {
+            background: #fff;
+            border: 1px solid #666;
+            width: 190px;
+        }
+
+        .my-div-icon {
+            width: 190px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <blockquote class="layui-elem-quote">
+            步骤1：导入背景图片
+        </blockquote>
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-sm9">
+
+                <div id="map"></div>
+            </div>
+            <div class="layui-col-sm3">
+                <fieldset class="layui-elem-field">
+                    <legend>
+                        <h5>工程属性</h5>
+                    </legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">文档名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">文档类型</label>
+                                <div class="layui-input-inline">
+                                    <select name="interest" lay-filter="aihao">
+                                        <option value="0">一次系统图</option>
+                                        <option value="1">系统工控图</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">背景图片</label>
+                                <div class="layui-input-inline">
+                                    <div class="layui-upload-drag" id="upload_btn">
+                                        <i class="layui-icon"></i>
+                                        <p>点击上传，或将文件拖拽到此处</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"></label>
+                                <div class="layui-input-inline">
+                                    <button class="layui-btn layui-btn-sm">
+                                        <i class="layui-icon">&#xe618;</i>保存工程
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="layui-elem-field">
+                    <legend>
+                        <h5>监测点列表</h5>
+                    </legend>
+                    <div class="layui-field-box">
+                        <ul id="treeDemo" class="ztree"></ul>
+                    </div>
+                </fieldset>
+
+                <fieldset class="layui-elem-field">
+                    <legend>
+                        <h5>关联属性</h5>
+                    </legend>
+                    <div class="layui-field-box">
+                        <div class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">监测点名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">显示类型</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">订阅频道</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">组合显示</label>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="switch" lay-skin="switch">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        (function () {
+            layui.use(['layer', 'form', 'element', 'upload'], function () {
+
+
+                var layer = layui.layer;
+                var form = layui.form;
+                var element = layui.element;
+                var upload = layui.upload;
+                var PrjInfo = {
+                    fileName: '',
+                    bgFileName: '',
+                    isLocked: false,
+                    makers: [{
+                        type: 0,
+                        ptName: "",
+                        ptCode: "",
+                        subUrl: ''
+                    }],
+                    prjCode: '',
+                    docType: 0,
+                    createTime: '',
+
+                };
+
+                var layer = layui.layer;
+                var form = layui.form;
+                var element = layui.element;
+                var bgFile = null;
+                var currentPoint = null;
+
+
+
+                var map = L.map('map', {
+
+                    minZoom: 1,
+                    maxZoom: 4,
+                    center: [0, 0],
+                    zoom: 2,
+                    crs: L.CRS.Simple
+
+                });
+                var gIbgLayer = null;
+                var gLayer = L.layerGroup();
+
+                var createBgMap = function () {
+                    if (bgFile != null) {
+
+                        var h = bgFile.info.height;
+                        var w = bgFile.info.width;
+                        var southWest = map.unproject([0, h], map.getMaxZoom() - 1);
+                        var northEast = map.unproject([w, 0], map.getMaxZoom() - 1);
+                        var bounds = new L.LatLngBounds(southWest, northEast);
+
+                       
+                        if (gIbgLayer != null) {
+                            gIbgLayer.remove();
+                        }
+
+
+                        gIbgLayer = L.imageOverlay('/static/upload/' + bgFile.fileName, bounds).addTo(
+                            map);
+
+                        // map.setMaxBounds(trbl(0,bgFile.info.width,bgFile.info.height,0));
+                        map.setMaxBounds(bounds);
+                        map.on('click', function (e) {
+
+                            console.log(e);
+                            currentPoint = e.latlng;
+                        })
+                    }
+                }
+
+                var createPointInMap = function (ptCode) {
+                    $.post("/project/projects/getchannels", {
+                        ptCode: ptCode
+                    }, function (e) {
+
+                        if (!e.errno) {
+                            var html = [];
+                            html.push('<div class="run">');
+                            $.each(e.data, function (k, v) {
+                                if ( v.chSubType == 17) {
+                                    html.push('<div>' + v.chName + ": 0.00 " + v.chUnit +
+                                        "</div>");
+                                }
+
+                            });
+                            html.push('</div>');
+                            //                                 var marker = new L.marker([39.5, -77.3], { opacity: 0.01 }); //opacity may be set to zero
+                            // marker.bindTooltip("My Label", {permanent: true, className: "my-label", offset: [0, 0] });
+                            // marker.addTo(map);
+                            var myIcon = L.divIcon({
+                                className: 'my-div-icon',
+                                html: html.join("")
+                            });
+                            var marker = L.marker([currentPoint.lat, currentPoint.lng], {
+                                icon: myIcon,
+                                userData: ptCode,
+                                iconSize: [100, 95],
+                                draggable: true
+                            }).addTo(map);
+                            //.bindTooltip("Ua:0.00", {permanent: true, className: "my-div-icon", offset: [0, 0] }).addTo(map);
+                            gLayer.addLayer(marker);
+                            marker.getElement().style.width = '150px';
+                            marker.getElement().style.height = '20px';
+                        }
+
+                    })
+                }
+                upload.render({
+                    elem: '#upload_btn',
+                    url: '/admin/upload/uploadbg',
+                    done: function (res) {
+                        console.log(res)
+                        if (res.errno) {
+                            layer.msg("哇，出现了错误!" + e.errmsg, {
+                                icon: 5
+                            });
+                        } else {
+                            bgFile = res.data;
+                            createBgMap();
+
+                        }
+
+                        console.log(res);
+                    }
+                });
+                var setTrigger = function () {
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
+
+                }
+                var zTreeOnClick = function (event, treeId, treeNode) {
+
+                };
+                var zTreeOnDblClick = function (event, treeId, treeNode) {
+                    console.log(currentPoint);
+                    if (currentPoint != null)
+                        createPointInMap(treeNode.id)
+                };
+                var setting = {
+                    edit: {
+
+                        enable: false,
+                        showRemoveBtn: false,
+                        showRenameBtn: false
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    callback: {
+
+                        onClick: zTreeOnClick,
+                        onDblClick: zTreeOnDblClick
+                    },
+                    view: {
+                        showIcon: false
+                    }
+                };
+                var zNodes = [];
+                var getTreepoint = function (prjCode) {
+                    $.get("/project/projects/gettreepoints", {
+                        prjCode: sessionStorage.getItem('prjCode')
+                    }, function (e) {
+                        console.log("gettreenode....");
+                        console.log(e);
+                        zNodes = [];
+                        var arr = e.data;
+                        arr.forEach(function (it) {
+                            it.open = true;
+                            zNodes.push(it);
+                        }, this);
+
+                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                        $("#callbackTrigger").bind("change", {}, setTrigger);
+
+
+
+                    })
+                }
+
+                getTreepoint();
+
+
+
+                form.render();
+
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

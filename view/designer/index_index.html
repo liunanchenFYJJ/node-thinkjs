@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>视图设计器</title>
+  <link rel="stylesheet" href="/static/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/leaflet/leaflet.css">
+  <script src="/static/layui/layui.js"></script>
+  <script src="/static/leaflet/leaflet.js"></script>
+</head>
+<body onbeforeunload="checkLeave();">
+  <div id="mapid"></div>
+</body>
+<script>
+  (function() {
+    function checkLeave() {
+      console.log('leave');
+    }
+
+    //
+    var map = L.map('mapid').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([51.5, -0.09]).addTo(map)
+        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .openPopup();
+  })()
+</script>
+<style>
+  #mapid { height: 880px; }
+</style>
+</html>
