@@ -2,13 +2,147 @@
     <blockquote class="layui-elem-quote">
         系统工况图，显示系统的设备情况及通信状态信息
     </blockquote>
-    <div id="drawing"></div>
+    <div class="layui-row">
+        <div class="layui-col-md8">
+            <div id="mapid"></div>
+        </div>
+        <div class="layui-col-md4">
+            <fieldset class="layui-elem-field">
+                <legend>
+                    <h5>工程属性</h5>
+                </legend>
+                <div class="layui-field-box">
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">文档名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">文档类型</label>
+                            <div class="layui-input-inline">
+                                <select name="interest" lay-filter="aihao">
+                                    <option value="0">一次系统图</option>
+                                    <option value="1">系统工况图</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">背景图片</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-upload-drag" id="upload_btn">
+                                    <i class="layui-icon"></i>
+                                    <p>点击上传，或将文件拖拽到此处</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"></label>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe618;</i>保存工程
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </fieldset>
+            <fieldset class="layui-elem-field">
+                <legend>
+                    <h5>监测点列表</h5>
+                </legend>
+                <div class="layui-field-box">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </fieldset>
+
+            <fieldset class="layui-elem-field">
+                <legend>
+                    <h5>关联属性</h5>
+                </legend>
+                <div class="layui-field-box">
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">监测点名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">显示类型</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">订阅频道</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="fileName" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">组合显示</label>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="switch" lay-skin="switch">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+
+        </div>
+    </div>
 </div>
 <style>
 
 </style>
 <script>
     (function(){
+        layui.use(['form', 'upload'], function() {
+            var form = layui.form;
+            var upload = layui.upload;
 
-    }())
+            upload.render({
+                elem: '#upload_btn'
+                ,url: '' // 上传路径
+                ,done: function(res){
+                    console.log(res)
+                }
+            });
+
+            // 添加图层
+            var map = L.map('mapid', {
+                minZoom: 1,
+                maxZoom: 4,
+                center: [0, 0],
+                zoom: 2,
+                crs: L.CRS.Simple
+            });
+            var w = 2000,
+                h = 1500,
+                url = '/static/img/test.png';
+
+            var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+            var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+            var bounds = new L.LatLngBounds(southWest, northEast);
+
+            // add the image overlay, 
+            // so that it covers the entire map
+            L.imageOverlay(url, bounds).addTo(map);
+
+            // tell leaflet that the map is exactly as big as the image
+            map.setMaxBounds(bounds);
+
+        });
+    })()
 </script>
+<style>
+    #mapid {
+        width: 100%;
+        height: 700px
+    }
+</style>
