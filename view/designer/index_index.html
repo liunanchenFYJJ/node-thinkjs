@@ -10,28 +10,48 @@
   <script src="/static/layui/layui.js"></script>
   <script src="/static/leaflet/leaflet.js"></script>
 </head>
-<body onbeforeunload="checkLeave();">
+<body>
   <div id="mapid"></div>
 </body>
 <script>
   (function() {
-    function checkLeave() {
-      console.log('leave');
-    }
+    layui.use(['form'], function() {
+      var form = layui.form;
 
-    //
-    var map = L.map('mapid').setView([51.505, -0.09], 13);
+      // function checkLeave() {
+      //   console.log('leave');
+      // }
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+      // 添加图层
+      var map = L.map('mapid', {
+        minZoom: 1,
+        maxZoom: 4,
+        center: [0, 0],
+        zoom: 2,
+        crs: L.CRS.Simple
+      });
+      var w = 2000,
+          h = 1500,
+          url = '/static/img/test.png';
 
-    L.marker([51.5, -0.09]).addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-        .openPopup();
+      var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+      var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+      var bounds = new L.LatLngBounds(southWest, northEast);
+
+      // add the image overlay, 
+      // so that it covers the entire map
+      L.imageOverlay(url, bounds).addTo(map);
+
+      // tell leaflet that the map is exactly as big as the image
+      map.setMaxBounds(bounds);
+    })
   })()
 </script>
 <style>
+  body {
+    margin: 0;
+    padding: 0
+  }
   #mapid { height: 880px; }
 </style>
 </html>
