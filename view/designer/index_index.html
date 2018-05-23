@@ -16,13 +16,92 @@
 <body>
   <div class="layui-row">
     <div class="layui-col-md9">
-      <div id="mapid"></div>      
+      <div id="mapid">
+        
+      </div>  
+      <input type="file" class="file" name="imgfile" id="imgfile" placeholder="请选择图片">
+      <img src="" id="showImg" >    
     </div>
     <div class="layui-col-md3">
+      <fieldset class="layui-elem-field">
+        <legend><h4>工程属性</h4></legend>
+        <div class="layui-field-box" style="min-height: 200px">
+          <form action="" class="layui-form">
+            <div class="layui-form-item">
+              <label class="layui-form-label">文档名称</label>
+              <div class="layui-input-block">
+                <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">文档类型</label>
+              <div class="layui-input-block">
+                <select name="doctype" lay-filter="doctype">
+                  <option value="0">一次系统图</option>
+                  <option value="1">系统工控图</option>
+                </select>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">背景图片</label>
+              <div class="layui-input-block">
+                <div class="layui-upload-drag" id="imgupload">
+                    <i class="layui-icon"></i>
+                    <p>点击上传，或将文件拖拽到此处</p>
+                </div>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </fieldset>
       <fieldset class="layui-elem-field">
         <legend><h4>监测点列表</h4></legend>
         <div class="layui-field-box" style="min-height: 200px">
             <ul id="treeDemo" class="ztree"></ul>
+        </div>
+      </fieldset>
+      <fieldset class="layui-elem-field">
+        <legend><h4>关联属性</h4></legend>
+        <div class="layui-field-box" style="min-height: 200px">
+          <form action="" class="layui-form">
+            <div class="layui-form-item">
+              <label class="layui-form-label">监测点名称</label>
+              <div class="layui-input-block">
+                <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">显示类型</label>
+              <div class="layui-input-block">
+                <select name="doctype" lay-filter="doctype">
+                  <option value="0">一次系统图</option>
+                  <option value="1">系统工控图</option>
+                </select>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">订阅频道</label>
+              <div class="layui-input-block">
+                <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">组合显示</label>
+              <div class="layui-input-block">
+                <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+              </div>
+            </div>
+          </form>
         </div>
       </fieldset>
     </div>
@@ -30,12 +109,32 @@
 </body>
 <script>
   (function() {
-    layui.use(['form'], function() {
+    layui.use(['form', 'upload'], function() {
       var form = layui.form;
+      var upload = layui.upload;
 
       // function checkLeave() {
       //   console.log('leave');
       // }
+
+      upload.render({
+        elem: '#imgupload'
+        ,url: '/designer/index/upload'  // 图片上传路径
+        ,auto: true
+        ,done: function(res){
+          console.log(res.data.vidPublicUrl)
+        }
+        ,error: function() {
+
+        }
+      });
+
+      form.on('submit(*)', function(data) {
+        console.log(data.elem);
+        console.log(data.form);
+        console.log(data.field);
+        return false;
+      });
 
       // 添加图层
       var map = L.map('mapid', {
@@ -179,6 +278,35 @@
       $(function(){
         $.fn.zTree.init($("#treeDemo"), setting, zNode);                
       });
+
+      var input = document.getElementById("imgfile");
+      //检测浏览器是否支持FileReader
+      if (typeof (FileReader) === 'undefined') {
+          result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！";
+          input.setAttribute('disabled', 'disabled');
+      } else {
+      //开启监听
+          input.addEventListener('change', readFile, false);
+      }
+
+      function readFile() {
+        var file = this.files[0];
+        // console.log(file);
+
+        //限定上传文件的类型，判断是否是图片类型
+        if (!/image\/\w+/.test(file.type)) {
+            layer.msg("只能选择图片");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+          console.log(this.result); //result读取失败为null
+          base64Code = this.result;
+            //把得到的base64赋值到img标签显示
+          $("#showImg").attr("src", base64Code);
+        }
+      }
 
     })
   })()
