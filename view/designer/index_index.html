@@ -7,11 +7,26 @@
   <title>视图设计器</title>
   <link rel="stylesheet" href="/static/layui/css/layui.css">
   <link rel="stylesheet" href="/static/leaflet/leaflet.css">
+  <link rel="stylesheet" href="/static/ztree/zTreeStyle.css">
+  <script src="/static/ztree/jquery-1.4.4.min.js"></script>
   <script src="/static/layui/layui.js"></script>
   <script src="/static/leaflet/leaflet.js"></script>
+  <script src="/static/ztree/jquery.ztree.core.js"></script>
 </head>
 <body>
-  <div id="mapid"></div>
+  <div class="layui-row">
+    <div class="layui-col-md9">
+      <div id="mapid"></div>      
+    </div>
+    <div class="layui-col-md3">
+      <fieldset class="layui-elem-field">
+        <legend><h4>监测点列表</h4></legend>
+        <div class="layui-field-box" style="min-height: 200px">
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>
+      </fieldset>
+    </div>
+  </div>
 </body>
 <script>
   (function() {
@@ -44,6 +59,127 @@
 
       // tell leaflet that the map is exactly as big as the image
       map.setMaxBounds(bounds);
+
+      var popup = L.popup();
+
+      function onMapClick(e) {
+        if (sessionStorage.treeNode) {
+          var treeNode = JSON.parse(sessionStorage.treeNode);
+          // popup
+          //     .setLatLng(e.latlng)
+          //     .setContent("You clicked the map at " + e.latlng.toString())
+          //     .openOn(map);
+          if (treeNode) {
+            // console.log(e.latlng);
+            var circle = L.circle([e.latlng.lat, e.latlng.lng], {
+              color: 'red',
+              fillColor: '#f03',
+              fillOpacity: 0.5,
+              radius: 5
+            }).addTo(map);
+
+            circle.bindPopup(treeNode.name);
+          }
+        } else {
+          layer.msg('请先选择一个节点');
+        }
+
+
+        sessionStorage.removeItem('treeNode');
+  
+      }
+
+      map.on('click', onMapClick);
+
+      // ztree
+      // ztree 写在layui外面，引入jquery文件冲突？
+      var setting = {
+        data: {
+            key: {title: "t"},
+            simpleData: {enable: true}
+        },
+        callback: {
+            onClick: onClick
+        },
+        view: {
+            showIcon: false
+        }
+      }
+      var zNode = [
+        { id:'PT_HkTXM_j5Z', pId:0, name:"211进线开关", t:"我很普通，随便点我吧", open:false},
+        { id:11, pId:'PT_HkTXM_j5Z', name:"214主变开关", t:"我很普通，随便点我吧"},
+        { id:111, pId:11, name:"411进线开关"},
+        { id:112, pId:11, name:"412电容补偿柜"},
+        { id:113, pId:11, name:"413馈线柜"},
+        { id:1131, pId:113, name:"413-1备用"},                
+        { id:1132, pId:113, name:"413-2备用"},                
+        { id:1133, pId:113, name:"413-3门卫室B3AP1"},                
+        { id:1134, pId:113, name:"413-4安防电源B3AP-AF(备)"},                
+        { id:1135, pId:113, name:"413-5水泵房生活泵B3AP-SHB"},                
+        { id:1136, pId:113, name:"413-6B2仓库普通负荷B2AP2"},                
+        { id:1137, pId:113, name:"413-7备用"},                
+        { id:114, pId:11, name:"414馈线柜"},
+        { id:1141, pId:114, name:"414-1备用"},                
+        { id:1142, pId:114, name:"414-2备用"},                
+        { id:1143, pId:114, name:"414-3备用"},                
+        { id:1144, pId:114, name:"414-4消防控制室B3APE-XF(常)"},                
+        { id:1145, pId:114, name:"414-5变电所用电B3APE-BDS(备)"},                
+        { id:1146, pId:114, name:"414-6水泵房消防栓泵B3APE-XHS(常)"},                
+        { id:1147, pId:114, name:"414-7备用"},
+        { id:115, pId:11, name:"415馈线柜"},
+        { id:1151, pId:115, name:"415-1备用"},                                
+        { id:1152, pId:115, name:"415-2备用"},                                
+        { id:1153, pId:115, name:"415-3备用"},                                
+        { id:1154, pId:115, name:"415-4物业用房B3AP"},                                
+        { id:1155, pId:115, name:"415-5备用"},                                
+        { id:1156, pId:115, name:"415-6水泵房喷淋泵B3APE-PLB(备)"},                                
+        { id:12, pId:'PT_HkTXM_j5Z', name:"215主变开关", t:"我很普通，随便点我吧"},
+
+        { id:2, pId:0, name:"221进线开关", t:"我很普通，随便点我吧", open:false},
+        { id:21, pId:2, name:"224主变开关", t:"我很普通，随便点我吧"},
+        { id:211, pId:21, name:"421进线开关"},
+        { id:212, pId:21, name:"422电容补偿柜"},
+        { id:213, pId:21, name:"423馈线柜"},
+        { id:2131, pId:213, name:"423-1备用"},                
+        { id:2132, pId:213, name:"423-2备用"},                
+        { id:2133, pId:213, name:"423-3室外配电柜B4AP"},                
+        { id:2134, pId:213, name:"423-4安防电源B3AP-AF(常)"},                
+        { id:2135, pId:213, name:"423-5水泵房生活泵B3AP-SHB(备)"},                
+        { id:2136, pId:213, name:"423-6B2仓库普通负荷B2AP1"},                
+        { id:2137, pId:213, name:"423-7备用"},                
+        { id:2138, pId:213, name:"423-8备用"},                
+        { id:214, pId:21, name:"424馈线柜"},
+        { id:1141, pId:214, name:"424-1备用"},                
+        { id:1142, pId:214, name:"424-2备用"},                
+        { id:1143, pId:214, name:"424-3备用"},                
+        { id:1144, pId:214, name:"424-4消防控制室B3APE-XF(备)"},                
+        { id:1145, pId:214, name:"424-5变电所用电B3APE-BDS(常)"},                
+        { id:1146, pId:214, name:"424-6水泵房消防栓泵B3APE-XHS(备)"},                
+        { id:1147, pId:214, name:"424-7备用"},
+        { id:215, pId:21, name:"425馈线柜"},
+        { id:1151, pId:215, name:"425-1备用"},                                
+        { id:1152, pId:215, name:"425-2备用"},                                
+        { id:1153, pId:215, name:"425-3备用"},                                
+        { id:1154, pId:215, name:"425-4备用"},                                
+        { id:1155, pId:215, name:"425-5备用"},                                
+        { id:1156, pId:215, name:"425-6水泵房喷淋泵B3APE-PLB(常)"}, 
+        { id:216, pId:21, name:"400母联开关"},                                               
+        { id:22, pId:2, name:"225主变开关", t:"我很普通，随便点我吧"}
+      ]
+      function onClick(event, treeId, treeNode) {
+        sessionStorage.treeNode = JSON.stringify(treeNode);
+        // console.log(event);
+        // console.log(treeId);
+        // console.log(treeNode);
+      }
+      // ztree是否显示图标
+      // function showIconForTree(treeId, treeNode) {
+      //     return !treeNode.isParent;
+      // }
+      $(function(){
+        $.fn.zTree.init($("#treeDemo"), setting, zNode);                
+      });
+
     })
   })()
 </script>
