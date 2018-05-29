@@ -22,7 +22,7 @@ export default class extends Base {
     }
 
     dataviewAction() {
-        //auto render template file index_index.html
+        //模拟数据
         return this.display();
     }
 
